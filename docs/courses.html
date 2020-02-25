@@ -1,0 +1,1042 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Courses: Data as Paths &mdash; gemma 1.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Compasses: Describe Objects" href="compasses.html" />
+    <link rel="prev" title="Bearings: Access Data Generically" href="bearings.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Courses: Data as Paths</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#course-class">Course Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-a-new-course-object">Making a New Course Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#appending-courses">Appending Courses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-port-course">The PORT Course</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#course-length">Course Length</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iterating-through-a-course">Iterating Through a Course</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#course-equality">Course Equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slicing-and-indexing">Slicing and Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-for-a-sub-course-or-bearing">Checking for a Sub-Course or Bearing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetching-default-values">Fetching Default Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-missing-bearings">Creating Missing Bearings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-fetch-examples">More fetch() Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Courses: Data as Paths</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/courses.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gemma"></span><div class="section" id="courses-data-as-paths">
+<span id="courses"></span><h1>Courses: Data as Paths<a class="headerlink" href="#courses-data-as-paths" title="Permalink to this headline">¶</a></h1>
+<p>Courses are the main way <code class="docutils literal notranslate"><span class="pre">gemma</span></code> fetches and places data.</p>
+<div class="section" id="course-class">
+<h2>Course Class<a class="headerlink" href="#course-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gemma.Course">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Course</code><span class="sig-paren">(</span><em class="sig-param">*bearings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gemma.Course.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">*bearings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence of bearings that lead to data in a structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bearings</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], …], <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Bearing</span></code> or <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects to be combined into
+new course.</p>
+</dd>
+</dl>
+<p>The core functionality of a course are its <a class="reference internal" href="#gemma.Course.fetch" title="gemma.Course.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.fetch()</span></code></a> and
+<a class="reference internal" href="#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a> methods. See their documentation below.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.end_point">
+<em class="property">property </em><code class="sig-name descname">end_point</code><a class="headerlink" href="#gemma.Course.end_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last bearing of current course</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>end point of course</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;three&#39;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">end_point</span>
+<span class="go">&lt;Fallback: &#39;three&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.ends_with">
+<code class="sig-name descname">ends_with</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course.ends_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course.ends_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if course ends with <code class="docutils literal notranslate"><span class="pre">other</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Bearing</span></code> or <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>]) – Bearing or Sub-Course to check</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True: Course ends with <code class="docutils literal notranslate"><span class="pre">other</span></code></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span><span class="p">(),</span> <span class="n">Fallback</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span> <span class="o">/</span> <span class="s2">&quot;four&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tail</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span> <span class="o">/</span> <span class="s2">&quot;four&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">middle</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;four&quot;</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;three&quot;</span><span class="p">))</span>
+<span class="go">False</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>For more detail, see the <a class="reference internal" href="#contains"><span class="std std-ref">Checking for a Sub-Course or Bearing</span></a> section below.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.fetch">
+<code class="sig-name descname">fetch</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">*</em>, <em class="sig-param">default=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses <code class="docutils literal notranslate"><span class="pre">target</span></code>, getting data at end point of course.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – data structure to get data from.</p></li>
+<li><p><strong>default</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Optional parameter to pass default value. When passed this value
+will be used if the course does not exist on <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Value at end of course.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – if any bearing cannot be found in <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+</dd>
+</dl>
+<p>Data is fetched by iterating through a course, running each bearing’s
+<a class="reference internal" href="bearings.html#gemma.BearingAbstract.fetch" title="gemma.BearingAbstract.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.fetch()</span></code></a> method on the previously fetched object.</p>
+<p>Lets use the <a class="reference internal" href="example_objects.html#data-dict"><span class="std std-ref">data_dict</span></a> object from <code class="xref py py-func docutils literal notranslate"><span class="pre">test_objects()</span></code>
+as an example.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span><span class="p">(),</span> <span class="n">Attr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_course</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;[nested]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[one key]&quot;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_course</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>What is happening in the example above? This course contains two
+<a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> bearings. The <a class="reference internal" href="bearings.html#gemma.Item.fetch" title="gemma.Item.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Item.fetch()</span></code></a> method gets a key
+or index. When the course executes a fetch, it first fetches the <code class="docutils literal notranslate"><span class="pre">&quot;nested&quot;</span></code>
+key from the <code class="docutils literal notranslate"><span class="pre">data_dict</span></code> object. This returns a sub_dictionary with the
+data: <code class="docutils literal notranslate"><span class="pre">{&quot;one</span> <span class="pre">key&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;two</span> <span class="pre">key&quot;:</span> <span class="pre">2}</span></code></p>
+<p>The next bearing’s fetch method is called on <code class="docutils literal notranslate"><span class="pre">&quot;one</span> <span class="pre">key&quot;</span></code> of the sub-dict,
+returning <code class="docutils literal notranslate"><span class="pre">1</span></code>. This is the end of the course, so <code class="docutils literal notranslate"><span class="pre">1</span></code> is returned as the
+final value of the fetch.</p>
+<p>Each fetch down the chain follows the rules established in <a class="reference internal" href="bearings.html#bearings"><span class="std std-ref">Bearings: Access Data Generically</span></a>.</p>
+<p>If a bearing cannot be found at any point in the chain, <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a>
+is raised.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bad_course</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;[non_existent]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[one key]&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bad_course</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">[non_existent]</span>
+</pre></div>
+</div>
+<p>We can supply a default value for non-existent targets like so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bad_course</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;default value fetched!&quot;</span><span class="p">)</span>
+<span class="go">default value fetched!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.parent">
+<em class="property">property </em><code class="sig-name descname">parent</code><a class="headerlink" href="#gemma.Course.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parent course of current course</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>parent</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;three&#39;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">parent</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.place">
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course.place"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course.place" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses <code class="docutils literal notranslate"><span class="pre">target</span></code> to place data at <a class="reference internal" href="#gemma.Course.end_point" title="gemma.Course.end_point"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.end_point()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – data structure to place data on.</p></li>
+<li><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – value to place.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None. Changes are made in-place.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – if any bearing cannot be found in <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#gemma.Course.fetch" title="gemma.Course.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.fetch()</span></code></a> is called on the acting course’s <a class="reference internal" href="#gemma.Course.parent" title="gemma.Course.parent"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.parent()</span></code></a>,
+returning the object that needs to be modified.</p>
+<p><a class="reference internal" href="bearings.html#gemma.BearingAbstract.place" title="gemma.BearingAbstract.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.place()</span></code></a> of <a class="reference internal" href="#gemma.Course.end_point" title="gemma.Course.end_point"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.end_point()</span></code></a> is called on the
+object to place <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<p>Lets look at an example using the <a class="reference internal" href="example_objects.html#target"><span class="std std-ref">target</span></a> object from
+<code class="xref py py-func docutils literal notranslate"><span class="pre">test_objects()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_course</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;dict_target&quot;</span> <span class="o">/</span> <span class="s2">&quot;new key&quot;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_course</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target</span><span class="o">.</span><span class="n">dict_target</span><span class="p">[</span><span class="s2">&quot;new key&quot;</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>See examples from the <a class="reference internal" href="#gemma.Course.fetch" title="gemma.Course.fetch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course.fetch</span></code></a> method in the documentation below.
+<a class="reference internal" href="#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course.place</span></code></a> abides by the same rules, except final bearing, which uses
+<a class="reference internal" href="bearings.html#gemma.BearingAbstract.place" title="gemma.BearingAbstract.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.place()</span></code></a> instead of <a class="reference internal" href="bearings.html#gemma.BearingAbstract.fetch" title="gemma.BearingAbstract.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.fetch()</span></code></a>, and
+always returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.replace">
+<code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">replacement</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course.replace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace bearings at index / slice with <code class="docutils literal notranslate"><span class="pre">replacement</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">slice</span></code>]) – item(s) to replace</p></li>
+<li><p><strong>replacement</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Replacement bearing / course</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;thing&quot;</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">/</span> <span class="s2">&quot;key&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;thing&#39;&gt; / &lt;Item: 11&gt; / &lt;Fallback: &#39;key&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">14</span><span class="p">)</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;thing&#39;&gt; / &lt;Item: 14&gt; / &lt;Fallback: &#39;sub-key&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">PORT</span> <span class="o">/</span> <span class="mi">14</span> <span class="o">/</span> <span class="s2">&quot;key2&quot;</span><span class="p">)</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;thing&#39;&gt; / &lt;Item: 14&gt; / &lt;Fallback: &#39;key2&#39;&gt; / ...&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.starts_with">
+<code class="sig-name descname">starts_with</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course.starts_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course.starts_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if course starts with <code class="docutils literal notranslate"><span class="pre">other</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">Bearing</span></code> or <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>]) – Bearing or Sub-Course to check</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True: Course starts with <code class="docutils literal notranslate"><span class="pre">other</span></code></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span><span class="p">,</span> <span class="n">Fallback</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span> <span class="o">/</span> <span class="s2">&quot;four&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">head</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">middle</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;two&quot;</span><span class="p">))</span>
+<span class="go">False</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>For more detail, see the <a class="reference internal" href="#contains"><span class="std std-ref">Checking for a Sub-Course or Bearing</span></a> section below.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Course.with_end_point">
+<code class="sig-name descname">with_end_point</code><span class="sig-paren">(</span><em class="sig-param">end_point</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_course.html#Course.with_end_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Course.with_end_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns course with new end point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>end_point</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – bearing to use as new end point.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>New Course.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;three&#39;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">with_end_point</span><span class="p">(</span><span class="s2">&quot;new&quot;</span><span class="p">)</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;new&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="making-a-new-course-object">
+<h2>Making a New Course Object<a class="headerlink" href="#making-a-new-course-object" title="Permalink to this headline">¶</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">*arg</span></code> becomes one bearing in the new course:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Attr</span><span class="p">,</span> <span class="n">Fallback</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_course</span> <span class="o">=</span> <span class="n">Course</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="n">Item</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_course</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt; / &lt;Item: 2&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Course supports <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#operators">pathlib-like syntax</a> to declare bearings via the <code class="docutils literal notranslate"><span class="pre">/</span></code>
+operator.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path_like</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path_like</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt; / &lt;Item: 2&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Bearings will be automatically cast from other values using the <a class="reference internal" href="bearings.html#gemma.bearing" title="gemma.bearing"><code class="xref py py-func docutils literal notranslate"><span class="pre">bearing()</span></code></a> factory.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto_cast</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">/</span> <span class="s2">&quot;method()&quot;</span> <span class="o">/</span> <span class="s2">&quot;[item]&quot;</span> <span class="o">/</span> <span class="s2">&quot;@attr&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">auto_cast</span>
+<span class="go">&lt;Course: &lt;Item: 5&gt; / &lt;Call: &#39;method&#39;&gt; / &lt;Item: &#39;item&#39;&gt; / &lt;Attr: &#39;attr&#39;&gt;</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="bearings.html#gemma.bearing" title="gemma.bearing"><code class="xref py py-func docutils literal notranslate"><span class="pre">bearing()</span></code></a> is passed the list of courses in <code class="docutils literal notranslate"><span class="pre">Course.BEARINGS_EXTENSION</span></code> added to
+<code class="docutils literal notranslate"><span class="pre">Course.BEARINGS</span></code>.</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">Course.BEARINGS</span></code> contains <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>, <a class="reference internal" href="bearings.html#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a>, <a class="reference internal" href="bearings.html#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a>,
+and <a class="reference internal" href="bearings.html#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> in that order, and <code class="docutils literal notranslate"><span class="pre">Course.BEARING_EXTENSION</span></code> is empty, a
+placeholder for custom bearings when <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> is inherited to extend
+functionality.</p>
+</div>
+<div class="section" id="appending-courses">
+<h2>Appending Courses<a class="headerlink" href="#appending-courses" title="Permalink to this headline">¶</a></h2>
+<p><em>Courses are immutable</em>. Whenever an item is added to the end of a course, a
+new course object is returned.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">original</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">extended</span> <span class="o">=</span> <span class="n">original</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;additional&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">original</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt; / &lt;Item: 2&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">extended</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt; / &lt;Item: 2&gt; / &lt;Item: &#39;additional&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">original</span></code> is not modified when <code class="docutils literal notranslate"><span class="pre">Item(&quot;additional&quot;)</span></code> is added to it; it returns a
+new <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> object.</p>
+<p>Courses can be appended to other Courses:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_two</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span> <span class="o">/</span> <span class="n">course_two</span>
+<span class="go">&lt;Course: &lt;Item: 1&gt; / &lt;Item: 2&gt; / &lt;Item: 3&gt; / &lt;Item: 4&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-port-course">
+<h2>The PORT Course<a class="headerlink" href="#the-port-course" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">gemma</span></code> comes with a blank course called <code class="docutils literal notranslate"><span class="pre">PORT</span></code> ( all good courses start in
+port! ), which can be imported and used as the root of pathlib-like courses
+instead of using <code class="docutils literal notranslate"><span class="pre">Course()</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_course</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;@a&quot;</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_course</span>
+<span class="go">&lt;Course: &lt;Attr: &#39;a&#39;&gt; / &lt;Item: 2&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_course</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[key]&quot;</span> <span class="o">/</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_course</span>
+<span class="go">&lt;Course: &lt;Item: &#39;key&#39;&gt; / &lt;Item: 10&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Since <code class="docutils literal notranslate"><span class="pre">PORT</span></code> is immutable, it can be used over and over to indicate the
+declaration of a new course with fewer keystrokes.</p>
+</div>
+<div class="section" id="course-length">
+<h2>Course Length<a class="headerlink" href="#course-length" title="Permalink to this headline">¶</a></h2>
+<p>Check the number of bearings in a <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> using <code class="docutils literal notranslate"><span class="pre">len()</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">two_long</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;first&quot;</span> <span class="o">/</span> <span class="s2">&quot;second&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">two_long</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;first&#39;&gt; / &lt;Fallback: &#39;second&#39;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">two_long</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">three_long</span> <span class="o">=</span> <span class="n">two_long</span> <span class="o">/</span> <span class="s2">&quot;third&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">three_long</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;first&#39;&gt; / &lt;Fallback: &#39;second&#39;&gt; / &lt;Fallback: &#39;third&#39;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">three_long</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>PORT is an empty <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> used for initialization, so appending two bearings
+results in a <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> of length <code class="docutils literal notranslate"><span class="pre">2</span></code>, not <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+</div>
+<div class="section" id="iterating-through-a-course">
+<h2>Iterating Through a Course<a class="headerlink" href="#iterating-through-a-course" title="Permalink to this headline">¶</a></h2>
+<p>You can easily iterate through a course’s bearings like any other iterable.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">/</span> <span class="s2">&quot;[two]&quot;</span> <span class="o">/</span> <span class="s2">&quot;@three&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">this_bearing</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">this_bearing</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">&lt;Item: 1&gt;</span>
+<span class="go">&lt;Item: &#39;two&#39;&gt;</span>
+<span class="go">&lt;Attr: &#39;three&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="course-equality">
+<h2>Course Equality<a class="headerlink" href="#course-equality" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects are equal when each’s <a class="reference internal" href="bearings.html#gemma.BearingAbstract.fetch" title="gemma.BearingAbstract.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.fetch()</span></code></a>
+or <a class="reference internal" href="bearings.html#gemma.BearingAbstract.place" title="gemma.BearingAbstract.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.place()</span></code></a> would have the same effect.</p>
+<ul>
+<li><dl>
+<dt>Courses are equal if the bearings they contain at each index are equal.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_two</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="s2">&quot;@text&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span> <span class="o">==</span> <span class="n">course_two</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Because they would get the same data:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="go">&#39;in a list&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_two</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="go">&#39;in a list&#39;</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#simple"><span class="std std-ref">simple</span></a></p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Courses of different lengths are unequal.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_three</span> <span class="o">=</span> <span class="n">course_one</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;additional&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="nb">len</span><span class="p">(</span><span class="n">course_one</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="nb">len</span><span class="p">(</span><span class="n">course_three</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">course_one</span> <span class="o">==</span> <span class="n">course_three</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">2 3 False</span>
+</pre></div>
+</div>
+<p>They would fetch different data.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Courses with different bearing names are not equal.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_two</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span> <span class="o">==</span> <span class="n">course_two</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>They fetch different data.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_two</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_one</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="go">&#39;in a list&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_two</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="go">20</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Courses with different bearing types are not equal.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_items</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;nested&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;one key&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_attrs</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;nested&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;one key&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_attrs</span> <span class="o">==</span> <span class="n">course_items</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>They fetch different data.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_items</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_attrs</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">@nested</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><a class="reference internal" href="bearings.html#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> can be equal to other bearing types.</dt><dd><p>… depending on what other bearing types are loaded into it’s
+<code class="docutils literal notranslate"><span class="pre">.BEARING_CLASSES</span></code> field.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_items</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;nested&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;one key&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_bearings</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;nested&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;one key&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_items</span> <span class="o">==</span> <span class="n">course_bearings</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Both these courses would fetch the same data on the same objects, so
+they are equal.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_items</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_bearings</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="slicing-and-indexing">
+<h2>Slicing and Indexing<a class="headerlink" href="#slicing-and-indexing" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl>
+<dt>You can get a bearing at a specific Index like so:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="mi">0</span> <span class="o">/</span> <span class="s2">&quot;[one]&quot;</span> <span class="o">/</span> <span class="s2">&quot;@two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three()&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&lt;Item: &#39;one&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&lt;Call: &#39;three&#39;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Slices will return a new <a class="reference internal" href="#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> with the requested bearings:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">&lt;Course: &lt;Item: &#39;one&#39;&gt; / &lt;Attr: &#39;two&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><a class="reference internal" href="#gemma.Course.parent" title="gemma.Course.parent"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.parent()</span></code></a> will return a course to the parent.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">parent</span>
+<span class="go">&lt;Course: &lt;Item: 0&gt; / &lt;Item: &#39;one&#39;&gt; / &lt;Attr: &#39;two&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><a class="reference internal" href="#gemma.Course.end_point" title="gemma.Course.end_point"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.end_point()</span></code></a> will return the last bearing.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="o">.</span><span class="n">end_point</span>
+<span class="go">&lt;Call: &#39;three&#39;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="checking-for-a-sub-course-or-bearing">
+<span id="contains"></span><h2>Checking for a Sub-Course or Bearing<a class="headerlink" href="#checking-for-a-sub-course-or-bearing" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl>
+<dt>Check if one course contains another.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[one]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[two]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[three]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[four]&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_middle</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[two]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[three]&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_middle</span> <span class="ow">in</span> <span class="n">course_example</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_other</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[one]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[three]&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_other</span> <span class="ow">in</span> <span class="n">course_example</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Check if a course contains a bearing.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;two&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">course_example</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;five&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">course_example</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Check if a course begins with a Sub-Course or Bearing.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_start</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[one]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[two]&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">course_start</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">course_middle</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;three&quot;</span><span class="p">))</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Check if a course ends with a Sub-Course or Bearing.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">course_end</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[three]&quot;</span> <span class="o">/</span> <span class="s2">&quot;[four]&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">course_end</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;four&quot;</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">course_middle</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course_example</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;three&quot;</span><span class="p">))</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Checking for Sub-Courses follows the same rules as equality above.</dt><dd><p>Bearings can be equal to other types.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_is_bearings</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span> <span class="o">/</span> <span class="s2">&quot;four&quot;</span>
+</pre></div>
+</div>
+<p>The above uses all bearings so will contain courses of different types.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_is_bearings</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span> <span class="o">/</span> <span class="s2">&quot;four&quot;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_course_attrs</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;two&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;three&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_course_items</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;two&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;three&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_course_attrs</span> <span class="ow">in</span> <span class="n">example_is_bearings</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_course_items</span> <span class="ow">in</span> <span class="n">example_is_bearings</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>But <code class="docutils literal notranslate"><span class="pre">test_course_items</span></code> would not contain <code class="docutils literal notranslate"><span class="pre">test_course_attrs</span></code>
+because the bearings are not of equal types.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_course_attrs</span> <span class="ow">in</span> <span class="n">test_course_items</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="fetching-default-values">
+<h2>Fetching Default Values<a class="headerlink" href="#fetching-default-values" title="Permalink to this headline">¶</a></h2>
+<p>Courses can return a default value if the course does not exist on a target object.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;one&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;nested&quot;</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">[3]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">course</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-missing-bearings">
+<h2>Creating Missing Bearings<a class="headerlink" href="#creating-missing-bearings" title="Permalink to this headline">¶</a></h2>
+<p>By passing a type to the <code class="docutils literal notranslate"><span class="pre">factory</span></code> of a bearing, you can generate missing types during
+a <a class="reference internal" href="#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a> operation.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">PORT</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Attr</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">has_factory</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">has_factory</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">{&#39;list&#39;: [&#39;value&#39;]}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Item(&quot;list&quot;)</span></code> would normally throw <code class="docutils literal notranslate"><span class="pre">NullNameError</span></code>, but when <code class="docutils literal notranslate"><span class="pre">factory</span></code> is not
+set to None, the error is caught. A new instance of the <code class="docutils literal notranslate"><span class="pre">factory</span></code> type is placed
+at the missing bearing. Traversal then continues as normal.</p>
+<p>Factories can be chained:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chained</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;key&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chained</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">{&#39;list&#39;: [{&#39;key&#39;: &#39;value&#39;}]}</span>
+</pre></div>
+</div>
+<p>This <em>does not</em> work with <a class="reference internal" href="#gemma.Course.fetch" title="gemma.Course.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.fetch()</span></code></a>. Factories cannot be used with shorthand.</p>
+<p>Factories do not only catch <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a>, but also replace values of the wrong
+type.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;list&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">replaces_none</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">replaces_none</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">{&#39;list&#39;: [&#39;value&#39;]}</span>
+</pre></div>
+</div>
+<p>This allows for arbitrary stand-ins to represent no data: None, Null, etc. Some caution
+is required, as <code class="docutils literal notranslate"><span class="pre">factory</span></code> may replace valid data if the type is incorrect.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrong_factory</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;nested&quot;</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrong_factory</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;whoops&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">{&#39;nested&#39;: {0: &#39;whoops&#39;}}</span>
+</pre></div>
+</div>
+<p>The existing <code class="docutils literal notranslate"><span class="pre">list</span></code> under “nested” is replaced with a new <code class="docutils literal notranslate"><span class="pre">dict</span></code>. Factories do not
+replace bearings of the same type, so to fix this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">right_factory</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;nested&quot;</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">right_factory</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;yay!&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">{&#39;nested&#39;: [&#39;yay!&#39;, &#39;one&#39;, &#39;two&#39;]}</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="bearings.html#gemma.BearingAbstract.init_factory" title="gemma.BearingAbstract.init_factory"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.init_factory()</span></code></a> can be overridden to alter how a factory is
+initialized.</p>
+</div>
+<div class="section" id="more-fetch-examples">
+<h2>More fetch() Examples<a class="headerlink" href="#more-fetch-examples" title="Permalink to this headline">¶</a></h2>
+<dl>
+<dt>Additional example 1a:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span><span class="p">,</span> <span class="n">Call</span><span class="p">,</span> <span class="n">Fallback</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">PORT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_one</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">PORT</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;list_data&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;simple&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_one</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">structured</span><span class="p">)</span>
+<span class="go">&#39;string value&#39;</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#structured"><span class="std std-ref">structured</span></a></p>
+</dd>
+<dt>Additional example 1b:</dt><dd><p>Remember that course can auto-cast bearings based on their string cues, so
+the above can be rewritten as:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_cast</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;@list_data&quot;</span> <span class="o">/</span> <span class="o">-</span><span class="mi">3</span> <span class="o">/</span> <span class="s2">&quot;[simple]&quot;</span> <span class="o">/</span> <span class="s2">&quot;@text&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_cast</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">structured</span><span class="p">)</span>
+<span class="go">&#39;string value&#39;</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#structured"><span class="std std-ref">structured</span></a></p>
+</dd>
+<dt>Additional example 1c:</dt><dd><p>Even simpler, as:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_fallback</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;list_data&quot;</span> <span class="o">/</span> <span class="o">-</span><span class="mi">3</span> <span class="o">/</span> <span class="s2">&quot;simple&quot;</span> <span class="o">/</span> <span class="s2">&quot;text&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_fallback</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">structured</span><span class="p">)</span>
+<span class="go">&#39;string value&#39;</span>
+</pre></div>
+</div>
+<p>Comparing <code class="docutils literal notranslate"><span class="pre">example_cast</span></code> and <code class="docutils literal notranslate"><span class="pre">example_fallback</span></code> you will see the second has cast
+to the <a class="reference internal" href="bearings.html#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> type.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_cast</span>
+<span class="go">&lt;Course: &lt;Attr: &#39;list_data&#39;&gt; / &lt;Item: -3&gt; / &lt;Item: &#39;simple&#39;&gt;</span>
+<span class="go">/ &lt;Attr: &#39;text&#39;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example_fallback</span>
+<span class="go">&lt;Course: &lt;Fallback: &#39;list_data&#39;&gt; / &lt;Item: -3&gt; / &lt;Fallback: &#39;simple&#39;&gt;</span>
+<span class="go">/ &lt;Fallback: &#39;text&#39;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>The exact types cannot be determined through shorthand. In most cases, this is
+acceptable, and trades a slight performance hit for more readable, faster to create
+code.</p>
+<p>example object refs: <a class="reference internal" href="example_objects.html#structured"><span class="std std-ref">structured</span></a></p>
+</dd>
+<dt>Additional example 2:</dt><dd><p>A <a class="reference internal" href="bearings.html#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a> type of the wrong kind will raise a
+<a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a> exception.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrong_type</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">PORT</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;list_data&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;simple&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrong_type</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">structured</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">@simple</span>
+</pre></div>
+</div>
+<p>The object <code class="docutils literal notranslate"><span class="pre">Attr(&quot;simple&quot;)</span></code> is to act on has a key called <code class="docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code>; It does
+not have an attribute called <code class="docutils literal notranslate"><span class="pre">simple</span></code>, which <a class="reference internal" href="bearings.html#gemma.Attr.fetch" title="gemma.Attr.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Attr.fetch()</span></code></a> is looking for.</p>
+<p>example object refs: <a class="reference internal" href="example_objects.html#structured"><span class="std std-ref">structured</span></a></p>
+</dd>
+</dl>
+<ul>
+<li><dl>
+<dt>Additional example 3a:</dt><dd><p>Lets fetch data from the <code class="docutils literal notranslate"><span class="pre">keys()</span></code> method of a dictionary.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">with_method</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;dict_data&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;keys&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">with_method</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">structured</span><span class="p">)</span>
+<span class="go">dict_keys([&#39;a&#39;, &#39;b&#39;, 1, 2, &#39;nested&#39;, &#39;simple&#39;])</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#structured"><span class="std std-ref">structured</span></a></p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Additional example 3b:</dt><dd><p>The above can be auto-cast like so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">with_method_cast</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;dict_data&quot;</span> <span class="o">/</span> <span class="s2">&quot;keys&quot;</span>
+<span class="go">dict_keys([&#39;a&#39;, &#39;b&#39;, 1, 2, &#39;nested&#39;, &#39;simple&#39;])</span>
+</pre></div>
+</div>
+<p>Be careful. <a class="reference internal" href="bearings.html#gemma.Item.fetch" title="gemma.Item.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Item.fetch()</span></code></a> is attempted before <a class="reference internal" href="bearings.html#gemma.Call.fetch" title="gemma.Call.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Call.fetch()</span></code></a>, so if the
+dict has a key called <code class="docutils literal notranslate"><span class="pre">keys</span></code> there may be odd results:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;keys&quot;</span><span class="p">:</span> <span class="s2">&quot;uh-oh&quot;</span><span class="p">}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ambiguous</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;nested&quot;</span> <span class="o">/</span> <span class="s2">&quot;keys&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ambiguous</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">&#39;uh-oh&#39;</span>
+</pre></div>
+</div>
+<p>To fix this, you can use a string-cue to indicate the last bearing should
+be cast to <a class="reference internal" href="bearings.html#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a> instead of <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">more_clear</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;nested&quot;</span> <span class="o">/</span> <span class="s2">&quot;keys()&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">more_clear</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">dict_keys([&#39;keys&#39;])</span>
+</pre></div>
+</div>
+<p>Now, what if there is actually a KEY we want to get called <code class="docutils literal notranslate"><span class="pre">&quot;keys()&quot;</span></code>,
+parentheses and all?</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">confusing_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;keys()&quot;</span><span class="p">:</span> <span class="s2">&quot;butwhytho?&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>In this case, we should cast to <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> explicitly, to avoid the detection of
+the <code class="docutils literal notranslate"><span class="pre">()</span></code> convention that <a class="reference internal" href="bearings.html#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a> uses as shorthand.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">most_clear</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;nested&quot;</span> <span class="o">/</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;keys()&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">most_clear</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">confusing_data</span><span class="p">)</span>
+<span class="go">&#39;butwhytho?&#39;</span>
+</pre></div>
+</div>
+<p>Auto-casting is a powerful feature for saving time, but one must keep in
+mind the ambiguity it can introduce in certain edge-cases.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="compasses.html" class="btn btn-neutral float-right" title="Compasses: Describe Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bearings.html" class="btn btn-neutral float-left" title="Bearings: Access Data Generically" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

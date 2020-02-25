@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gemma._compass &mdash; gemma 1.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>gemma._compass</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gemma._compass</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">._bearings</span> <span class="kn">import</span> <span class="n">Attr</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Call</span><span class="p">,</span> <span class="n">BearingAbstract</span>
+<span class="kn">from</span> <span class="nn">._exceptions</span> <span class="kn">import</span> <span class="n">NonNavigableError</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Mapping</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Generator</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="Compass"><a class="viewcode-back" href="../../compasses.html#gemma.Compass">[docs]</a><span class="k">class</span> <span class="nc">Compass</span><span class="p">:</span>
+    <span class="n">_BEARING_ITER_METHODS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">_BEARING_ITER_CLASS</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Compass&quot;</span><span class="p">:</span>
+        <span class="n">new_compass</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+
+        <span class="c1"># lets stash the classes bearing discovery methods so we don&#39;t need to discover</span>
+        <span class="c1"># them every time we call .bearings_iter().</span>
+
+        <span class="c1"># first we check if this subclass has already stashed its methods, if it has</span>
+        <span class="c1"># we can skip over the step</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_BEARING_ITER_CLASS</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">new_compass</span>
+
+        <span class="c1"># otherwise, lets iter through the current dir() and find them.</span>
+        <span class="n">methods</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;bearings_iter&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_iter&quot;</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">item</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">methods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="c1"># we stash the methods and the name of the class who stashed them here, so we</span>
+        <span class="c1"># don&#39;t have to do it the next time this implementation is initiated.</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_BEARING_ITER_METHODS</span> <span class="o">=</span> <span class="n">methods</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_BEARING_ITER_CLASS</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+
+        <span class="k">return</span> <span class="n">new_compass</span>
+
+<div class="viewcode-block" id="Compass.__init__"><a class="viewcode-back" href="../../compasses.html#gemma.Compass.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Type</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">attrs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">items</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">calls</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Contains rules for how to map a type&#39;s bearings:</span>
+
+<span class="sd">            - what bearings should be available when mapping.</span>
+<span class="sd">            - what type of bearing should be returned.</span>
+
+<span class="sd">        :param target_types: The classes of object that this compass can map.</span>
+
+<span class="sd">            - ``NoneType`` = all objects accepted.</span>
+
+<span class="sd">        :param attrs: Restricted list of :class:`Attr` ``name`` values the compass can</span>
+<span class="sd">            return.</span>
+
+<span class="sd">            - ``True``: return all :class:`Attr` bearings (default).</span>
+<span class="sd">            - ``False``: return no :class:`Attr` bearings.</span>
+
+<span class="sd">        :param items: Restricted list of :class:`Item` ``name`` values the compass can</span>
+<span class="sd">            return.</span>
+
+<span class="sd">            - ``True``: return all :class:`Item` bearings (default).</span>
+<span class="sd">            - ``False``: return no :class:`Item` bearings.</span>
+
+<span class="sd">        :param calls: Restricted list of :class:`Call` ``name`` values the compass can</span>
+<span class="sd">            return.</span>
+
+<span class="sd">            - ``True``: return all :class:`Call` bearings.</span>
+<span class="sd">            - ``False``: return no :class:`Call` bearings (default).</span>
+
+<span class="sd">        The core use of the Compass object is through :func:`Compass.bearings_iter`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">Type</span><span class="p">]]</span> <span class="o">=</span> <span class="n">target_types</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">attrs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">items</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">calls</span></div>
+
+<div class="viewcode-block" id="Compass.bearings_iter"><a class="viewcode-back" href="../../compasses.html#gemma.Compass.bearings_iter">[docs]</a>    <span class="k">def</span> <span class="nf">bearings_iter</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Yields all bearing names of ``target`` as :class:`BearingAbstract`</span>
+<span class="sd">        objects.</span>
+
+<span class="sd">        :param target: target to yield bearings of</span>
+<span class="sd">        :return: (bearing, value) pair for each valid bearing in ``target``</span>
+
+<span class="sd">        :raises NonNavigableError: If ``target`` type cannot be inspected by Compass.</span>
+
+<span class="sd">        Bearings are not yielded in sorted order. Values are yielded from all other</span>
+<span class="sd">        methods ending in ``_iter``. For the default :class:`Compass`, these methods are</span>
+<span class="sd">        :func:`Compass.attr_iter`, :func:`Compass.item_iter`,</span>
+<span class="sd">        and :func:`Compass.call_iter`. Any method that raises ``NotImplementedError``</span>
+<span class="sd">        is skipped silently.</span>
+
+<span class="sd">        Compasses are used to help :class:`Surveyor` objects traverse through a data</span>
+<span class="sd">        structure. Compasses tell surveyors what bearings it should</span>
+<span class="sd">        traverse for a given object type.</span>
+
+<span class="sd">        See main :class:`Compass` documentation for examples.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_navigable</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NonNavigableError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;{type(self).__name__} cannot map {repr(target)}&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Iterate through the bearing methods and yield their results.</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_BEARING_ITER_METHODS</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">yield from</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Compass.bearings"><a class="viewcode-back" href="../../compasses.html#gemma.Compass.bearings">[docs]</a>    <span class="k">def</span> <span class="nf">bearings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns all results from :func:`Compass.bearings_iter` as ``list``.</span>
+
+<span class="sd">        :param target: object to get bearings of</span>
+<span class="sd">        :return: List of (bearing, value) pairs.</span>
+
+<span class="sd">        ``list`` will not be sorted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bearings_iter</span><span class="p">(</span><span class="n">target</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="Compass.attr_iter"><a class="viewcode-back" href="../../compasses.html#gemma.Compass.attr_iter">[docs]</a>    <span class="k">def</span> <span class="nf">attr_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Attr</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Yields (:class:`Attr`, value) pairs for attributes of ``target``.</span>
+
+<span class="sd">        :param target: object to return attributes of.</span>
+
+<span class="sd">        :return: (Attr, value) pair of next valid attr on ``target``</span>
+<span class="sd">        :raises StopIteration: At end.</span>
+
+<span class="sd">        Custom compass should raise ``NotImplementedError`` if functionality to be</span>
+<span class="sd">        disabled.</span>
+
+<span class="sd">        This method is not meant to be called directly, but through</span>
+<span class="sd">        :func:`Compass.bearings_iter`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">attr_names</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attr_names</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">target</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">attr_names</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">target</span><span class="o">.</span><span class="vm">__slots__</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">attr_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">attr_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attrs</span>
+
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_names</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">Attr</span><span class="p">(</span><span class="n">attr</span><span class="p">),</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Compass.item_iter"><a class="viewcode-back" href="../../compasses.html#gemma.Compass.item_iter">[docs]</a>    <span class="k">def</span> <span class="nf">item_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Item</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Yields (:class:`Item`, value) pairs for keys/indexes of ``target``.</span>
+
+<span class="sd">        :param target: object to return item names of.</span>
+
+<span class="sd">        :return: (item name, value) of next valid key/index on ``target``</span>
+<span class="sd">        :raises StopIteration: At end.</span>
+
+<span class="sd">        Custom compass should raise ``NotImplementedError`` if functionality to be</span>
+<span class="sd">        disabled.</span>
+
+<span class="sd">        This method is not meant to be called directly, but through</span>
+<span class="sd">        :func:`Compass.bearings_iter`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coordinates</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">item_names</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">item_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">target</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">target</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">item_names</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">Item</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Compass.call_iter"><a class="viewcode-back" href="../../compasses.html#gemma.Compass.call_iter">[docs]</a>    <span class="k">def</span> <span class="nf">call_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Call</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Yields (:class:`Call`, value) pairs for methods of ``target``.</span>
+
+<span class="sd">        :param target: object to return item names of.</span>
+
+<span class="sd">        :return: (method name as bearing, value) of next valid method on ``target``</span>
+<span class="sd">        :raises StopIteration: At end.</span>
+
+<span class="sd">        Custom compass should raise ``NotImplementedError`` if functionality to be</span>
+<span class="sd">        disabled.</span>
+
+<span class="sd">        This method is not meant to be called directly, but through</span>
+<span class="sd">        :func:`Compass.bearings_iter`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">methods</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+            <span class="n">method_function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">method_function</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">method_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="n">method_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">yield</span> <span class="n">Call</span><span class="p">(</span><span class="n">method_name</span><span class="p">),</span> <span class="n">method_function</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Compass.is_navigable"><a class="viewcode-back" href="../../compasses.html#gemma.Compass.is_navigable">[docs]</a>    <span class="k">def</span> <span class="nf">is_navigable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether the compass can provide Bearings for ``target``.</span>
+
+<span class="sd">        :param target: Object to check</span>
+<span class="sd">        :return:</span>
+<span class="sd">            - ``True``: compass can provide Bearings for target.</span>
+<span class="sd">            - ``False``: Cannot.</span>
+
+<span class="sd">        Can be overridden for custom inspection.</span>
+
+<span class="sd">        DEFAULT BEHAVIOR: compares the type of ``target`` to ``target_types``</span>
+<span class="sd">        passed to ``__init__`` using ``isinstance()``</span>
+
+<span class="sd">        If the ``target_types`` param was ``None`` or the ``target`` type passes,</span>
+<span class="sd">        ``True`` is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_types</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_types</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

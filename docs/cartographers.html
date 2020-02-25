@@ -1,0 +1,1002 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cartographers: Move Data &mdash; gemma 1.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exceptions" href="exceptions.html" />
+    <link rel="prev" title="Surveyors: Traverse Structures" href="surveyors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cartographers: Move Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#coordinate-dataclass">Coordinate Dataclass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coord-alias">Coord Alias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cartographer-class">Cartographer Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mapping-flow">Mapping Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-mapping">Basic Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-default-values">Using Default Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#supply-cleaning-functions">Supply Cleaning Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#blank-destinations">Blank Destinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#map-source-automatically">Map Source Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mix-explicit-and-automatic-mapping">Mix Explicit and Automatic Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#override-default-methods">Override Default Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#one-many-origins-to-one-many-destinations">One/Many Origins to One/Many Destinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#suppress-errors">Suppress Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Cartographers: Move Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/cartographers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gemma"></span><div class="section" id="cartographers-move-data">
+<span id="cartographers"></span><h1>Cartographers: Move Data<a class="headerlink" href="#cartographers-move-data" title="Permalink to this headline">¶</a></h1>
+<p>Cartographers map one object’s data to another. Individual mapping instructions are
+stored in <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">gemma.Coordinate</span></code></a> dataclasses.</p>
+<div class="section" id="coordinate-dataclass">
+<h2>Coordinate Dataclass<a class="headerlink" href="#coordinate-dataclass" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gemma.Coordinate">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Coordinate</code><a class="reference internal" href="_modules/gemma/_cartogrpaher.html#Coordinate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Coordinate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores instructions for a single data point transfer. This object is immutable,
+and will always retain the values originally passed to it. If you are accessing it
+through a cleaning function, and wish to get any values cleaned in previous steps,
+they will be found on the <code class="docutils literal notranslate"><span class="pre">Coordinate.clean</span></code> object.</p>
+<dl>
+<dt><strong>Fields: __init__</strong></dt><dd><ul>
+<li><p><strong>org (</strong> <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> <strong>):</strong> Course to <a class="reference internal" href="courses.html#gemma.Course.fetch" title="gemma.Course.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.fetch()</span></code></a> <code class="docutils literal notranslate"><span class="pre">value</span></code> on
+origin data structure</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Optional (Can be <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p>Can be passed tuple to pull from multiple origins.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>dst (</strong> <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> <strong>):</strong> Course to <a class="reference internal" href="courses.html#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a> <code class="docutils literal notranslate"><span class="pre">value</span></code> on
+destination data structure</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Optional: (Can Be <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p>Can be passed tuple to place on multiple destinations.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>clean_origin (</strong> <code class="docutils literal notranslate"><span class="pre">Callable</span></code> <strong>):</strong> function to alter <code class="docutils literal notranslate"><span class="pre">org</span></code> before
+<a class="reference internal" href="courses.html#gemma.Course.fetch" title="gemma.Course.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.fetch()</span></code></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Optional: (Can Be <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>clean_dst (</strong> <code class="docutils literal notranslate"><span class="pre">Callable</span></code> <strong>):</strong> function to alter <code class="docutils literal notranslate"><span class="pre">dst</span></code> before
+<a class="reference internal" href="courses.html#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Optional: (Can be <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>clean_value (</strong> <code class="docutils literal notranslate"><span class="pre">Callable</span></code> <strong>):</strong> function to alter <code class="docutils literal notranslate"><span class="pre">value</span></code> before
+<a class="reference internal" href="courses.html#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Optional: (Can be <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>default (</strong> <code class="docutils literal notranslate"><span class="pre">Any</span></code> <strong>):</strong> default value(s) to use if origin course(s) do not
+exist</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">NO_DEFAULT</span></code></p></li>
+<li><p>Can be passed tuple to when there are multiple origins. Use NO_DEFAULT flag
+for any origin that should throw an error if it does not exist.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+<dt><strong>Fields: __post_init__</strong></dt><dd><ul class="simple">
+<li><p><strong>clean (</strong> <a class="reference internal" href="#gemma.CleanData" title="gemma.CleanData"><code class="xref py py-class docutils literal notranslate"><span class="pre">CleanData</span></code></a> <strong>):</strong> stores cleaned origin courses, destination
+courses, and value for Coordinate as it is being processed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="gemma.CleanData">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">CleanData</code><a class="headerlink" href="#gemma.CleanData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores cleaned values during processing of a coordinate. Instances of this class
+are made by the <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> class, and are nor meant to be created on their
+own.</p>
+<p><strong>Fields: __post_init__</strong></p>
+<blockquote>
+<div><ul>
+<li><p><strong>org_list (</strong> List[Course] <strong>):</strong> list of <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects passed to
+<code class="docutils literal notranslate"><span class="pre">Coordinate.org</span></code>. Always a list, even if a single <code class="docutils literal notranslate"><span class="pre">Course</span></code> is passed to
+<code class="docutils literal notranslate"><span class="pre">org</span></code></p>
+<ul class="simple">
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">list</span></code></p></li>
+</ul>
+<p>The courses in this field are replaced by their cleaned versions as the
+<a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> is processed.</p>
+</li>
+<li><p><strong>dst_list (</strong> List[Optional[Course]] <strong>):</strong> list of <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects
+passed to <code class="docutils literal notranslate"><span class="pre">Coordinate.dst</span></code>. Always a list, even if a single <code class="docutils literal notranslate"><span class="pre">Course</span></code> is
+passed to <code class="docutils literal notranslate"><span class="pre">dst</span></code></p>
+<ul class="simple">
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">list</span></code></p></li>
+</ul>
+<p>The courses in this field are replaced by their cleaned versions as the
+<a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> is processed.</p>
+</li>
+<li><p><strong>value (</strong> <code class="docutils literal notranslate"><span class="pre">Callable</span></code> <strong>):</strong> value fetched from origin course, and to be
+placed at destination course.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="coord-alias">
+<h2>Coord Alias<a class="headerlink" href="#coord-alias" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">gemma</span></code> comes with a built-in alias for <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> called <code class="docutils literal notranslate"><span class="pre">Coord</span></code>, for more
+compact code.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Coordinate</span><span class="p">,</span> <span class="n">Coord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Coordinate</span> <span class="ow">is</span> <span class="n">Coord</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cartographer-class">
+<h2>Cartographer Class<a class="headerlink" href="#cartographer-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gemma.Cartographer">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Cartographer</code><a class="reference internal" href="_modules/gemma/_cartogrpaher.html#Cartographer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Cartographer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gemma.Cartographer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_cartogrpaher.html#Cartographer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Cartographer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps data from one object to another.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><ul class="simple">
+<li><p><strong>cache (</strong> <code class="docutils literal notranslate"><span class="pre">dict</span></code> <strong>):</strong> dict for storing information
+during <a class="reference internal" href="#gemma.Cartographer.map" title="gemma.Cartographer.map"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.map()</span></code></a>. The cache is cleared each time
+<a class="reference internal" href="#gemma.Cartographer.map" title="gemma.Cartographer.map"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.map()</span></code></a> is run, and is available to <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a>
+cleaning functions and overridden <a class="reference internal" href="#gemma.Cartographer" title="gemma.Cartographer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cartographer</span></code></a> cleaning functions.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Primary interaction is through <a class="reference internal" href="#gemma.Cartographer.map" title="gemma.Cartographer.map"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.map()</span></code></a>, which iterates over a
+<code class="docutils literal notranslate"><span class="pre">list</span></code> of <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> objects, fetching data from <code class="docutils literal notranslate"><span class="pre">origin_root</span></code> and
+placing on <code class="docutils literal notranslate"><span class="pre">dst_root</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Cartographer.clean_dst">
+<code class="sig-name descname">clean_dst</code><span class="sig-paren">(</span><em class="sig-param">course</em>, <em class="sig-param">coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_cartogrpaher.html#Cartographer.clean_dst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Cartographer.clean_dst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes alterations to <code class="docutils literal notranslate"><span class="pre">coordinate.dst</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>course</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>]) – course to clean</p></li>
+<li><p><strong>coordinate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code>) – coordinate to process</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Destination Course to be used for <a class="reference internal" href="courses.html#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a></p>
+</dd>
+</dl>
+<p>Designed to be overridden for custom parsing. Function is not static to allow
+for access to <code class="docutils literal notranslate"><span class="pre">self.cache</span></code>.</p>
+<p><strong>default behavior:</strong> Passes destination <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> through, making no
+alterations.  If <code class="docutils literal notranslate"><span class="pre">coordinate.dst</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">coordinate.org</span></code> is copied,
+replacing all bearings with the <a class="reference internal" href="bearings.html#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> type.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Cartographer.clean_org">
+<code class="sig-name descname">clean_org</code><span class="sig-paren">(</span><em class="sig-param">course</em>, <em class="sig-param">coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_cartogrpaher.html#Cartographer.clean_org"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Cartographer.clean_org" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes alterations to <code class="docutils literal notranslate"><span class="pre">coordinate.org</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>course</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>) – course to clean</p></li>
+<li><p><strong>coordinate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code>) – coordinate to process</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>origin Course to be used for <code class="xref py py-func docutils literal notranslate"><span class="pre">Course.fetch.()</span></code></p>
+</dd>
+</dl>
+<p>Designed to be over-ridden for custom parsing. Function is not static to allow
+for access to <code class="docutils literal notranslate"><span class="pre">self.cache</span></code>.</p>
+<p><strong>default behavior:</strong> Passes origin <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> through, making no
+alterations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Cartographer.clean_value">
+<code class="sig-name descname">clean_value</code><span class="sig-paren">(</span><em class="sig-param">values</em>, <em class="sig-param">coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_cartogrpaher.html#Cartographer.clean_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Cartographer.clean_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes alterations to the value of a coordinate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – value or values to clean</p></li>
+<li><p><strong>coordinate</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code>) – coordinate to process</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Value to be used in <a class="reference internal" href="courses.html#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a></p>
+</dd>
+</dl>
+<p>Designed to be over-ridden for custom parsing. Function is not static to allow
+for access to <code class="docutils literal notranslate"><span class="pre">self.cache</span></code>.</p>
+<p><strong>default behavior:</strong> Passes <code class="docutils literal notranslate"><span class="pre">value</span></code> through, making no alterations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Cartographer.map">
+<code class="sig-name descname">map</code><span class="sig-paren">(</span><em class="sig-param">origin_root</em>, <em class="sig-param">dst_root</em>, <em class="sig-param">coordinates=None</em>, <em class="sig-param">surveyor=None</em>, <em class="sig-param">exceptions=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_cartogrpaher.html#Cartographer.map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Cartographer.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map data from one object to another.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>origin_root</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – root source data is pulled from</p></li>
+<li><p><strong>dst_root</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Mutable root destination data is applied to</p></li>
+<li><p><strong>coordinates</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code>]]) – coordinates instructing how to transfer each
+piece of data</p></li>
+<li><p><strong>surveyor</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code>]) – surveyor object for automatic coordinate mapping</p></li>
+<li><p><strong>exceptions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – <ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: raise <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a> and <a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonNavigableError</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: suppress until end, then raise <a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuppressedErrors</span></code></a></p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – when Course cannot be found</p></li>
+<li><p><a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><strong>NonNavigableError</strong></a> – If surveyor cannot chart object.</p></li>
+<li><p><a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><strong>SuppressedErrors</strong></a> – At end if errors occur and <code class="docutils literal notranslate"><span class="pre">exceptions</span></code> is set
+to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code> Data is applied in-place.</p>
+</dd>
+</dl>
+<p>See documentation for further details and examples.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="mapping-flow">
+<h2>Mapping Flow<a class="headerlink" href="#mapping-flow" title="Permalink to this headline">¶</a></h2>
+<p>The flow of the overall <a class="reference internal" href="#gemma.Cartographer.map" title="gemma.Cartographer.map"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.map()</span></code></a> function is as follows:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Clear <cite>Cartographer.cache</cite></p></li>
+<li><p>Map each explicit <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> with below logic.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">surveyor</span></code> is passed, use <a class="reference internal" href="surveyors.html#gemma.Surveyor.chart" title="gemma.Surveyor.chart"><code class="xref py py-func docutils literal notranslate"><span class="pre">Surveyor.chart()</span></code></a> on <code class="docutils literal notranslate"><span class="pre">origin_root</span></code>.</p></li>
+<li><p>Iterate through endpoint <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects from surveyor.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Each ( <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>, <code class="docutils literal notranslate"><span class="pre">value</span></code> ) is placed into the <code class="docutils literal notranslate"><span class="pre">origin</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code>
+of new <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> objects.</p></li>
+<li><p>Each <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> follows steps below</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p>The logic flow for mapping each <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> is as follows:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Each <code class="docutils literal notranslate"><span class="pre">coordinate.org</span></code> is altered by the <code class="docutils literal notranslate"><span class="pre">coordinate.clean_org</span></code> function
+individually. Or if it is not supplied, the <a class="reference internal" href="#gemma.Cartographer.clean_org" title="gemma.Cartographer.clean_org"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.clean_org()</span></code></a> method.
+Results are returned to <code class="docutils literal notranslate"><span class="pre">coordinate.clean.org_list</span></code>.</p></li>
+<li><p>All values objects are fetched from the <code class="docutils literal notranslate"><span class="pre">coordinate.clean.org_list</span></code> courses and
+placed on <code class="docutils literal notranslate"><span class="pre">coordinate.clean.value</span></code>. If there are multiple origin courses, all
+of their values are returned as a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> in order. If <code class="docutils literal notranslate"><span class="pre">coordinate.default</span></code>
+is not NO_DEFAULT, it will be used to supply missing values.</p></li>
+<li><p>If a <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a> is thrown above, it is either raised or suppressed and
+saved for later depending on the map operation settings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coordinate.clean.value</span></code> is altered by the <code class="docutils literal notranslate"><span class="pre">coordinate.clean_value</span></code> function.
+Or, if it is not supplied, the <a class="reference internal" href="#gemma.Cartographer.clean_value" title="gemma.Cartographer.clean_value"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.clean_value()</span></code></a> method. All values
+are passed to the cleaning function, not individually.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coordinate.dst</span></code> is altered by the <code class="docutils literal notranslate"><span class="pre">coordinate.clean_dst</span></code> function.
+Or if it is not supplied, the <a class="reference internal" href="#gemma.Cartographer.clean_dst" title="gemma.Cartographer.clean_dst"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.clean_dst()</span></code></a> method. Results are
+returned to <code class="docutils literal notranslate"><span class="pre">coordinate.clean.dst_list</span></code></p></li>
+<li><p><a class="reference internal" href="courses.html#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a> of each <code class="docutils literal notranslate"><span class="pre">coordinate.clean.dst_list</span></code> sets
+<code class="docutils literal notranslate"><span class="pre">coordinate.clean.value</span></code> on <code class="docutils literal notranslate"><span class="pre">dst_root</span></code>. If mote than one destination course is
+specified, the values is iterated over, placing an item in order on each
+destination course.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>Lets set up the root and destination objects we will use for the first few
+examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Cartographer</span><span class="p">,</span> <span class="n">Coordinate</span><span class="p">,</span> <span class="n">PORT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">DataOrigin</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;a value&quot;</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;b value&quot;</span>
+<span class="gp">... </span>    <span class="n">one</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">two</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_origin</span> <span class="o">=</span> <span class="n">DataOrigin</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_destination</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">defaultdict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-mapping">
+<h2>Basic Mapping<a class="headerlink" href="#basic-mapping" title="Permalink to this headline">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;a field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;b field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;one field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;two field&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>For compactness, we can write the above like so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Coord</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;a field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;b field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;one field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;two field&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>… using the <code class="docutils literal notranslate"><span class="pre">Coord</span></code> alias.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span> <span class="o">=</span> <span class="n">Cartographer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data_origin</span><span class="p">,</span> <span class="n">data_destination</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_destination</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">  &quot;int&quot;: {</span>
+<span class="go">      &quot;one field&quot;: 1,</span>
+<span class="go">      &quot;two field&quot;: 2</span>
+<span class="go">  },</span>
+<span class="go">  &quot;str&quot;: {</span>
+<span class="go">      &quot;a field&quot;: &quot;a value&quot;,</span>
+<span class="go">      &quot;b field&quot;: &quot;b value&quot;</span>
+<span class="go">  }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-default-values">
+<h2>Using Default Values<a class="headerlink" href="#using-default-values" title="Permalink to this headline">¶</a></h2>
+<p>We can supply default values for coordinates in the case that they do not exist:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;a field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;b field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;one field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;two field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;three field&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span> <span class="o">=</span> <span class="n">Cartographer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data_origin</span><span class="p">,</span> <span class="n">data_destination</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_destination</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">  &quot;int&quot;: {</span>
+<span class="go">      &quot;one field&quot;: 1,</span>
+<span class="go">      &quot;two field&quot;: 2</span>
+<span class="go">      &quot;three field&quot;: 3</span>
+<span class="go">  },</span>
+<span class="go">  &quot;str&quot;: {</span>
+<span class="go">      &quot;a field&quot;: &quot;a value&quot;,</span>
+<span class="go">      &quot;b field&quot;: &quot;b value&quot;</span>
+<span class="go">  }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="supply-cleaning-functions">
+<h2>Supply Cleaning Functions<a class="headerlink" href="#supply-cleaning-functions" title="Permalink to this headline">¶</a></h2>
+<p>We wish to cast <code class="docutils literal notranslate"><span class="pre">DataOrigin.one</span></code> and <code class="docutils literal notranslate"><span class="pre">DataOrigin.two</span></code> to <code class="docutils literal notranslate"><span class="pre">str</span></code> objects. Lets
+supply a cleaning function.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cast_string</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">coord</span><span class="p">:</span> <span class="n">Coordinate</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice the signature here. <em>All :class:`Coordinate` cleaning functions must follow this
+signature</em>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">values/course</span></code>, is the current value or course being processed. Course-cleaning
+functions always pass one course at a time, regardless of whether it is a
+one-to-one or many-to-many mapping. Value-cleaning functions pass all values from
+all origin courses as a tuple, rather than one at a time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coord</span></code>, is the Coordinate for the value,course being processed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache</span></code> is passed <code class="docutils literal notranslate"><span class="pre">Cartographer.cache</span></code> of the running process so information
+can be stored or referenced during the process.</p></li>
+</ul>
+</div></blockquote>
+<p>Each method should return its relevant value; <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> objects <em>should not</em>
+be edited in place within the function. <code class="docutils literal notranslate"><span class="pre">coordinate.clean_origin</span></code> and
+<code class="docutils literal notranslate"><span class="pre">coordinate.clean_dst</span></code> <em>must</em> return an <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> object.</p>
+<p>Lets use <code class="docutils literal notranslate"><span class="pre">cast_string()</span></code> on the appropriate coordinates:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;a field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;b field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;one field&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">clean_value</span><span class="o">=</span><span class="n">cast_string</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;two field&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">clean_value</span><span class="o">=</span><span class="n">cast_string</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span> <span class="o">=</span> <span class="n">Cartographer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data_origin</span><span class="p">,</span> <span class="n">data_destination</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_destination</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">  &quot;int&quot;: {</span>
+<span class="go">      &quot;one field&quot;: &quot;1&quot;,</span>
+<span class="go">      &quot;two field&quot;: &quot;2&quot;</span>
+<span class="go">  },</span>
+<span class="go">  &quot;str&quot;: {</span>
+<span class="go">      &quot;a field&quot;: &quot;a value&quot;,</span>
+<span class="go">      &quot;b field&quot;: &quot;b value&quot;</span>
+<span class="go">  }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="blank-destinations">
+<h2>Blank Destinations<a class="headerlink" href="#blank-destinations" title="Permalink to this headline">¶</a></h2>
+<p>By default, leaving the destination path empty results in the Cartographer placing
+the <code class="docutils literal notranslate"><span class="pre">Coordinate.value</span></code> at the same course as the source, using <a class="reference internal" href="bearings.html#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a>
+bearings instead of the original bearing types.</p>
+<p>Lets map the <code class="docutils literal notranslate"><span class="pre">simple</span></code> test object to a dict without explicit destination
+coordinates.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple_coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;text&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;number&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span> <span class="o">=</span> <span class="n">Cartographer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">simple</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">simple_coordinates</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;text&#39;: &#39;simple text&#39;, &#39;number&#39;: 50}</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#simple"><span class="std std-ref">simple</span></a></p>
+</div>
+<div class="section" id="map-source-automatically">
+<h2>Map Source Automatically<a class="headerlink" href="#map-source-automatically" title="Permalink to this headline">¶</a></h2>
+<p>Supplying a <a class="reference internal" href="surveyors.html#gemma.Surveyor" title="gemma.Surveyor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code></a> to <a class="reference internal" href="#gemma.Cartographer.map" title="gemma.Cartographer.map"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.map()</span></code></a> automatically discovers
+endpoints and transfers them to the destination at the same bearing names.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">survey</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">simple</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">surveyor</span><span class="o">=</span><span class="n">survey</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;text&#39;: &#39;simple text&#39;, &#39;number&#39;: 50}</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="surveyors.html#surveyors"><span class="std std-ref">Surveyors: Traverse Structures</span></a> and <a class="reference internal" href="compasses.html#compasses"><span class="std std-ref">Compasses: Describe Objects</span></a> sections for more information on how
+to control what endpoints a <a class="reference internal" href="surveyors.html#gemma.Surveyor" title="gemma.Surveyor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code></a> will discover when charting a data
+structure.</p>
+<p>example object refs: <a class="reference internal" href="example_objects.html#simple"><span class="std std-ref">simple</span></a></p>
+</div>
+<div class="section" id="mix-explicit-and-automatic-mapping">
+<h2>Mix Explicit and Automatic Mapping<a class="headerlink" href="#mix-explicit-and-automatic-mapping" title="Permalink to this headline">¶</a></h2>
+<p>You can use both explicit and automatic coordinate mapping in concert. Explicitly
+mapped coordinates will not be mapped a second time if <a class="reference internal" href="surveyors.html#gemma.Surveyor" title="gemma.Surveyor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code></a> discovers them.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coord</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;custom key&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">simple</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">surveyor</span><span class="o">=</span><span class="n">survey</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;custom key&#39;: &#39;simple text&#39;, &#39;number&#39;: 50}</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#simple"><span class="std std-ref">simple</span></a></p>
+</div>
+<div class="section" id="override-default-methods">
+<h2>Override Default Methods<a class="headerlink" href="#override-default-methods" title="Permalink to this headline">¶</a></h2>
+<p>There are thee main ways to influence how data is moved from
+<code class="docutils literal notranslate"><span class="pre">origin_root</span></code> to <code class="docutils literal notranslate"><span class="pre">destination_root</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Alter the <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> fetching the <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+<li><p>Alter the <code class="docutils literal notranslate"><span class="pre">value</span></code> that was fetched.</p></li>
+<li><p>Alter the <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> placing the <code class="docutils literal notranslate"><span class="pre">value</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>As seen in example two, each of these values can be altered on a per-<a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a>
+basis by passing cleaning functions.</p>
+<p>We can also override the <a class="reference internal" href="#gemma.Cartographer" title="gemma.Cartographer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cartographer</span></code></a> cleaning methods to change the default
+behavior. Lets try altering all origin courses.</p>
+<p>We have some data in a <code class="docutils literal notranslate"><span class="pre">dict</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">photo_info</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;cannon.resolution.width&quot;</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;cannon.resolution.height&quot;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;cannon.file.name&quot;</span><span class="p">:</span> <span class="s2">&quot;my_photo_1234&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;cannon.file.extension&quot;</span><span class="p">:</span> <span class="s2">&quot;jpg&quot;</span>
+<span class="gp">... </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>It’s annoying to have to write “cannon.” at the beginning of every coordinate,
+Ideally we could write something like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;resolution.width&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;resolution.height&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;file.name&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;file.extension&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It’s both quicker and easier to read!</p>
+<p>By default, if there is no destination course given, a generic version of the
+source course will be used. But what if we want to split up the data into separate
+<code class="docutils literal notranslate"><span class="pre">&quot;resolution&quot;</span></code> and <cite>“file”</cite> sub-dictionaries?</p>
+<p>Lets override <a class="reference internal" href="#gemma.Cartographer.clean_org" title="gemma.Cartographer.clean_org"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.clean_org()</span></code></a> to add the <cite>“cannon.”</cite> back to thee
+head before fetching the source data, and <a class="reference internal" href="#gemma.Cartographer.clean_dst" title="gemma.Cartographer.clean_dst"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.clean_dst()</span></code></a> to create
+the appropriate destination <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">NewCart</span><span class="p">(</span><span class="n">Cartographer</span><span class="p">):</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">clean_org</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">course</span><span class="p">:</span> <span class="n">Course</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">:</span> <span class="n">Coordinate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Course</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">origin</span> <span class="o">=</span> <span class="n">coordinate</span><span class="o">.</span><span class="n">org</span>
+<span class="gp">... </span>        <span class="n">new_name</span> <span class="o">=</span> <span class="s2">&quot;cannon.&quot;</span> <span class="o">+</span> <span class="n">origin</span><span class="o">.</span><span class="n">end_point</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="n">new_origin</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">with_end_point</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">new_name</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">new_origin</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">clean_dst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">course</span><span class="p">:</span> <span class="n">Course</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">:</span> <span class="n">Coordinate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Course</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">coordinate</span><span class="o">.</span><span class="n">dst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="n">coordinate</span><span class="o">.</span><span class="n">dst</span>
+<span class="gp">... </span>        <span class="n">destination</span> <span class="o">=</span> <span class="n">coordinate</span><span class="o">.</span><span class="n">org</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="n">dst_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">destination</span><span class="o">.</span><span class="n">end_point</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">... </span>        <span class="n">bearing_names</span> <span class="o">=</span> <span class="n">dst_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="n">new_bearings</span> <span class="o">=</span> <span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bearing_names</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="s2">&quot;cannon&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">new_destination</span> <span class="o">=</span> <span class="n">Course</span><span class="p">(</span><span class="o">*</span><span class="n">new_bearings</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">new_destination</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span> <span class="o">=</span> <span class="n">NewCart</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">defaultdict</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">photo_info</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">surveyor</span><span class="o">=</span><span class="n">survey</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">  &quot;file&quot;: {</span>
+<span class="go">      &quot;extension&quot;: &quot;jpg&quot;,</span>
+<span class="go">      &quot;name&quot;: &quot;my_photo_1234&quot;</span>
+<span class="go">  },</span>
+<span class="go">  &quot;resolution&quot;: {</span>
+<span class="go">      &quot;height&quot;: 1080,</span>
+<span class="go">      &quot;width&quot;: 1920</span>
+<span class="go">  }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="one-many-origins-to-one-many-destinations">
+<h2>One/Many Origins to One/Many Destinations<a class="headerlink" href="#one-many-origins-to-one-many-destinations" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">org</span></code> and <code class="docutils literal notranslate"><span class="pre">dst</span></code> <a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a> fields can accept a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of courses.</p>
+<p>When multiple origin courses are passed, a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of their values will be passed to
+the value cleaning function.</p>
+<p>When multiple destination courses are passed, the result of the value cleaning function
+will be iterated through, passing values in order to each destination.</p>
+<p>Lets say we have some information about a photo:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">photo_info</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>And we want to map it to a single “resolution” field. Lets set up a cleaning function
+that takes width and height, then returns a formatted resolution:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">resolution_str</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">coord</span><span class="p">:</span> <span class="n">Coordinate</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{values[0]}</span><span class="s2">x</span><span class="si">{values[1]}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>We expect <code class="docutils literal notranslate"><span class="pre">values</span></code> will be a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> with two <code class="docutils literal notranslate"><span class="pre">int</span></code> values: width and height.
+Lets pass <em>two</em> <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects to the <code class="docutils literal notranslate"><span class="pre">org</span></code> parameter of a single
+<a class="reference internal" href="#gemma.Coordinate" title="gemma.Coordinate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinate</span></code></a>..</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">org</span><span class="o">=</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[width]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[height]&quot;</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>        <span class="n">dst</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[resolution]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">clean_value</span><span class="o">=</span><span class="n">resolution_str</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The return of <code class="docutils literal notranslate"><span class="pre">format_resolution()</span></code> will be placed onto the single <code class="docutils literal notranslate"><span class="pre">dst</span></code>
+<a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">photo_info</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;resolution&#39;: &#39;1920x1080&#39;}</span>
+</pre></div>
+</div>
+<p>When we have multiple origins we can supply multiple defaults:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">org</span><span class="o">=</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[width]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[height]&quot;</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>        <span class="n">dst</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[resolution]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">clean_value</span><span class="o">=</span><span class="n">resolution_str</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">720</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">dict</span><span class="p">(),</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;resolution&#39;: &#39;1280x720&#39;}</span>
+</pre></div>
+</div>
+<p>If you only wish SOME of the origins to have a default supply a <code class="docutils literal notranslate"><span class="pre">NO_DEFAULT</span></code> flag for
+the origins you wish to still throw errors when a valid course is not present.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">NO_DEFAULT</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">org</span><span class="o">=</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[width]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[height]&quot;</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>        <span class="n">dst</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[resolution]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">clean_value</span><span class="o">=</span><span class="n">resolution_str</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="n">NO_DEFAULT</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The above will not throw an error if <code class="docutils literal notranslate"><span class="pre">&quot;width&quot;</span></code> is missing, but will if <code class="docutils literal notranslate"><span class="pre">&quot;height&quot;</span></code>
+is.</p>
+<p>Lets do the other way around, splitting up a <code class="docutils literal notranslate"><span class="pre">&quot;resolution&quot;</span></code> field into <code class="docutils literal notranslate"><span class="pre">&quot;width&quot;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&quot;height&quot;</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">split_res</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">coord</span><span class="p">:</span> <span class="n">Coordinate</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">org</span> <span class="o">=</span> <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[resolution]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">dst</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[width]&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;[height]&quot;</span>
+<span class="gp">... </span>        <span class="p">),</span>
+<span class="gp">... </span>        <span class="n">clean_value</span><span class="o">=</span><span class="n">split_res</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">photo_info</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;width&#39;: 1920, &#39;height&#39;: 1080}</span>
+</pre></div>
+</div>
+<p>Many-to-many relationships are possible as well, following the same logic.</p>
+</div>
+<div class="section" id="suppress-errors">
+<h2>Suppress Errors<a class="headerlink" href="#suppress-errors" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#gemma.Cartographer" title="gemma.Cartographer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cartographer</span></code></a> throws an error when hitting an origin or destination
+<a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> that does not exist.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Cartographer</span><span class="p">,</span> <span class="n">Surveyor</span><span class="p">,</span> <span class="n">Coordinate</span><span class="p">,</span> <span class="n">Compass</span><span class="p">,</span> <span class="n">PORT</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;a value&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="s2">&quot;c value&quot;</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coords</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;b&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">PORT</span> <span class="o">/</span> <span class="s2">&quot;c&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span> <span class="o">=</span> <span class="n">Cartographer</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coords</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">&lt;Fallback: &#39;b&#39;&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code> is a bad key, so mapping stops at the error. <code class="docutils literal notranslate"><span class="pre">&quot;c&quot;</span></code> is unmapped.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;a&#39;: &#39;a value&#39;}</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#gemma.Cartographer.map" title="gemma.Cartographer.map"><code class="xref py py-func docutils literal notranslate"><span class="pre">Cartographer.map()</span></code></a> will suppress <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a> and
+<a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonNavigableError</span></code></a> exceptions when <code class="docutils literal notranslate"><span class="pre">exceptions</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, waiting
+until the operation is complete to throw <a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuppressedErrors</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.SuppressedErrors</span>: <span class="n">Some errors occurred while mapping</span>
+</pre></div>
+</div>
+<p>The error is thrown at the end of the mapping, <code class="docutils literal notranslate"><span class="pre">destination</span></code> is as complete as
+possible:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+<span class="go">{&#39;a&#39;: &#39;a value&#39;, &#39;c&#39;: &#39;c value&#39;}</span>
+</pre></div>
+</div>
+<p>To see what errors occurred, catch the exception and check <code class="docutils literal notranslate"><span class="pre">SuppressedErrors.errors</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">SuppressedErrors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">SuppressedErrors</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">[NullNameError(&quot;&lt;Fallback: &#39;b&#39;&gt;&quot;)]</span>
+</pre></div>
+</div>
+<p>Setting errors to <code class="docutils literal notranslate"><span class="pre">False</span></code> also catches <a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonNavigableError</span></code></a>. We can use
+<code class="docutils literal notranslate"><span class="pre">isinstance</span></code> on <a class="reference internal" href="exceptions.html#gemma.SuppressedErrors.types" title="gemma.SuppressedErrors.types"><code class="xref py py-func docutils literal notranslate"><span class="pre">SuppressedErrors.types()</span></code></a> to check what types are present.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">cart</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">SuppressedErrors</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NonNavigableError:&quot;</span><span class="p">,</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">types</span><span class="p">,</span> <span class="n">NonNavigableError</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NullNameError:&quot;</span><span class="p">,</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">types</span><span class="p">,</span> <span class="n">NullNameError</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">NonNavigableError: False</span>
+<span class="go">NullNameError: False</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="surveyors.html" class="btn btn-neutral float-left" title="Surveyors: Traverse Structures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

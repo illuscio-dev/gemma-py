@@ -1,0 +1,636 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compasses: Describe Objects &mdash; gemma 1.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Surveyors: Traverse Structures" href="surveyors.html" />
+    <link rel="prev" title="Courses: Data as Paths" href="courses.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Compasses: Describe Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#compass-class">Compass Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#map-bearings-of-object">Map Bearings of Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#include-methods-of-object">Include Methods of Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#omitting-bearings-from-map">Omitting Bearings from Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#restrict-bearings-from-map">Restrict Bearings from Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declare-compatible-types">Declare Compatible Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-compatibility">Custom Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-examples">Additional Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Compasses: Describe Objects</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/compasses.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gemma"></span><div class="section" id="compasses-describe-objects">
+<span id="compasses"></span><h1>Compasses: Describe Objects<a class="headerlink" href="#compasses-describe-objects" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="compass-class">
+<h2>Compass Class<a class="headerlink" href="#compass-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gemma.Compass">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Compass</code><span class="sig-paren">(</span><em class="sig-param">target_types=None</em>, <em class="sig-param">attrs=True</em>, <em class="sig-param">items=True</em>, <em class="sig-param">calls=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gemma.Compass.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">target_types=None</em>, <em class="sig-param">attrs=True</em>, <em class="sig-param">items=True</em>, <em class="sig-param">calls=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains rules for how to map a type’s bearings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>what bearings should be available when mapping.</p></li>
+<li><p>what type of bearing should be returned.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_types</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>, …], <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – <p>The classes of object that this compass can map.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">NoneType</span></code> = all objects accepted.</p></li>
+</ul>
+</p></li>
+<li><p><strong>attrs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – <p>Restricted list of <a class="reference internal" href="bearings.html#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a> <code class="docutils literal notranslate"><span class="pre">name</span></code> values the compass can
+return.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: return all <a class="reference internal" href="bearings.html#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a> bearings (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: return no <a class="reference internal" href="bearings.html#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a> bearings.</p></li>
+</ul>
+</p></li>
+<li><p><strong>items</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]) – <p>Restricted list of <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> <code class="docutils literal notranslate"><span class="pre">name</span></code> values the compass can
+return.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: return all <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> bearings (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: return no <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> bearings.</p></li>
+</ul>
+</p></li>
+<li><p><strong>calls</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – <p>Restricted list of <a class="reference internal" href="bearings.html#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a> <code class="docutils literal notranslate"><span class="pre">name</span></code> values the compass can
+return.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: return all <a class="reference internal" href="bearings.html#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a> bearings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: return no <a class="reference internal" href="bearings.html#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a> bearings (default).</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p>The core use of the Compass object is through <a class="reference internal" href="#gemma.Compass.bearings_iter" title="gemma.Compass.bearings_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.bearings_iter()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Compass.attr_iter">
+<code class="sig-name descname">attr_iter</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass.attr_iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass.attr_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields (<a class="reference internal" href="bearings.html#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a>, value) pairs for attributes of <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to return attributes of.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(Attr, value) pair of next valid attr on <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>StopIteration</strong> – At end.</p>
+</dd>
+</dl>
+<p>Custom compass should raise <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> if functionality to be
+disabled.</p>
+<p>This method is not meant to be called directly, but through
+<a class="reference internal" href="#gemma.Compass.bearings_iter" title="gemma.Compass.bearings_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.bearings_iter()</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Compass.bearings">
+<code class="sig-name descname">bearings</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass.bearings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass.bearings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all results from <a class="reference internal" href="#gemma.Compass.bearings_iter" title="gemma.Compass.bearings_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.bearings_iter()</span></code></a> as <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to get bearings of</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of (bearing, value) pairs.</p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">list</span></code> will not be sorted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Compass.bearings_iter">
+<code class="sig-name descname">bearings_iter</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass.bearings_iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass.bearings_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields all bearing names of <code class="docutils literal notranslate"><span class="pre">target</span></code> as <a class="reference internal" href="bearings.html#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a>
+objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – target to yield bearings of</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(bearing, value) pair for each valid bearing in <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><strong>NonNavigableError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">target</span></code> type cannot be inspected by Compass.</p>
+</dd>
+</dl>
+<p>Bearings are not yielded in sorted order. Values are yielded from all other
+methods ending in <code class="docutils literal notranslate"><span class="pre">_iter</span></code>. For the default <a class="reference internal" href="#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a>, these methods are
+<a class="reference internal" href="#gemma.Compass.attr_iter" title="gemma.Compass.attr_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.attr_iter()</span></code></a>, <a class="reference internal" href="#gemma.Compass.item_iter" title="gemma.Compass.item_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.item_iter()</span></code></a>,
+and <a class="reference internal" href="#gemma.Compass.call_iter" title="gemma.Compass.call_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.call_iter()</span></code></a>. Any method that raises <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code>
+is skipped silently.</p>
+<p>Compasses are used to help <a class="reference internal" href="surveyors.html#gemma.Surveyor" title="gemma.Surveyor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code></a> objects traverse through a data
+structure. Compasses tell surveyors what bearings it should
+traverse for a given object type.</p>
+<p>See main <a class="reference internal" href="#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> documentation for examples.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Compass.call_iter">
+<code class="sig-name descname">call_iter</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass.call_iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass.call_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields (<a class="reference internal" href="bearings.html#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a>, value) pairs for methods of <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to return item names of.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(method name as bearing, value) of next valid method on <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>StopIteration</strong> – At end.</p>
+</dd>
+</dl>
+<p>Custom compass should raise <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> if functionality to be
+disabled.</p>
+<p>This method is not meant to be called directly, but through
+<a class="reference internal" href="#gemma.Compass.bearings_iter" title="gemma.Compass.bearings_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.bearings_iter()</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Compass.is_navigable">
+<code class="sig-name descname">is_navigable</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass.is_navigable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass.is_navigable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the compass can provide Bearings for <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Object to check</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: compass can provide Bearings for target.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: Cannot.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p>Can be overridden for custom inspection.</p>
+<p>DEFAULT BEHAVIOR: compares the type of <code class="docutils literal notranslate"><span class="pre">target</span></code> to <code class="docutils literal notranslate"><span class="pre">target_types</span></code>
+passed to <code class="docutils literal notranslate"><span class="pre">__init__</span></code> using <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code></p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">target_types</span></code> param was <code class="docutils literal notranslate"><span class="pre">None</span></code> or the <code class="docutils literal notranslate"><span class="pre">target</span></code> type passes,
+<code class="docutils literal notranslate"><span class="pre">True</span></code> is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Compass.item_iter">
+<code class="sig-name descname">item_iter</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_compass.html#Compass.item_iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Compass.item_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields (<a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>, value) pairs for keys/indexes of <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to return item names of.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(item name, value) of next valid key/index on <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>StopIteration</strong> – At end.</p>
+</dd>
+</dl>
+<p>Custom compass should raise <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> if functionality to be
+disabled.</p>
+<p>This method is not meant to be called directly, but through
+<a class="reference internal" href="#gemma.Compass.bearings_iter" title="gemma.Compass.bearings_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.bearings_iter()</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="map-bearings-of-object">
+<h2>Map Bearings of Object<a class="headerlink" href="#map-bearings-of-object" title="Permalink to this headline">¶</a></h2>
+<p>Get all (<a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>, value) pairs of dict:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Compass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">default_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">bearing</span> <span class="ow">in</span> <span class="n">default_compass</span><span class="o">.</span><span class="n">bearings_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">bearing</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&lt;Item: &#39;a&#39;&gt;, &#39;a dict&#39;)</span>
+<span class="go">(&lt;Item: &#39;b&#39;&gt;, &#39;b dict&#39;)</span>
+<span class="go">(&lt;Item: 1&gt;, &#39;one dict&#39;)</span>
+<span class="go">(&lt;Item: 2&gt;, &#39;two dict&#39;)</span>
+<span class="go">(&lt;Item: &#39;nested&#39;&gt;, {&#39;one key&#39;: 1, &#39;two key&#39;: 2})</span>
+<span class="go">(&lt;Item: &#39;simple&#39;&gt;, DataSimple(text=&#39;string value&#39;, number=40))</span>
+</pre></div>
+</div>
+<p>By default, compass returns all non-callable attributes and items.
+<code class="docutils literal notranslate"><span class="pre">dict</span></code> does not support attrs, so only <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> objects and their values are
+returned.</p>
+<p>Alternatively <a class="reference internal" href="#gemma.Compass.bearings" title="gemma.Compass.bearings"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.bearings()</span></code></a> returns the results as a <code class="docutils literal notranslate"><span class="pre">list</span></code>,
+rather than a <code class="docutils literal notranslate"><span class="pre">Generator</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">default_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">[(&lt;Item: &#39;a&#39;&gt;, &#39;a dict&#39;), (&lt;Item: &#39;b&#39;&gt;, &#39;b dict&#39;), ...</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#data-dict"><span class="std std-ref">data_dict</span></a></p>
+</div>
+<div class="section" id="include-methods-of-object">
+<h2>Include Methods of Object<a class="headerlink" href="#include-methods-of-object" title="Permalink to this headline">¶</a></h2>
+<p>By default, methods of <code class="docutils literal notranslate"><span class="pre">target</span></code> are not returned. We have to explicitly allow them
+by name.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keys_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">(</span><span class="n">calls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;keys&#39;</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">bearing</span> <span class="ow">in</span> <span class="n">keys_compass</span><span class="o">.</span><span class="n">bearings_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">bearing</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&lt;Item: &#39;a&#39;&gt;, &#39;a dict&#39;)</span>
+<span class="go">(&lt;Item: &#39;b&#39;&gt;, &#39;b dict&#39;)</span>
+<span class="go">(&lt;Item: 1&gt;, &#39;one dict&#39;)</span>
+<span class="go">(&lt;Item: 2&gt;, &#39;two dict&#39;)</span>
+<span class="go">(&lt;Item: &#39;nested&#39;&gt;, {&#39;one key&#39;: 1, &#39;two key&#39;: 2})</span>
+<span class="go">(&lt;Item: &#39;simple&#39;&gt;, DataSimple(text=&#39;string value&#39;, number=40))</span>
+<span class="go">(&lt;Call: &#39;keys&#39;&gt;, dict_keys([&#39;a&#39;, &#39;b&#39;, 1, 2, &#39;nested&#39;, &#39;simple&#39;])</span>
+</pre></div>
+</div>
+<p>This is to avoid a compass automatically executing a method like
+<code class="docutils literal notranslate"><span class="pre">dict.pop()</span></code> as it traverses an object.</p>
+<p>example object refs: <a class="reference internal" href="example_objects.html#data-dict"><span class="std std-ref">data_dict</span></a></p>
+</div>
+<div class="section" id="omitting-bearings-from-map">
+<h2>Omitting Bearings from Map<a class="headerlink" href="#omitting-bearings-from-map" title="Permalink to this headline">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keys_only_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">target_types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">calls</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;keys&quot;</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">keys_only_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">[(&lt;Call: &#39;keys&#39;&gt;, dict_keys([&#39;a&#39;, &#39;b&#39;, 1, 2, &#39;nested&#39;, &#39;simple&#39;]))]</span>
+</pre></div>
+</div>
+<p>By passing <code class="docutils literal notranslate"><span class="pre">False</span></code> to items, we stop any <a class="reference internal" href="bearings.html#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> bearings from being
+returned. The same behavior applies to <code class="docutils literal notranslate"><span class="pre">attrs</span></code> and <code class="docutils literal notranslate"><span class="pre">methods</span></code></p>
+<p>example object refs: <a class="reference internal" href="example_objects.html#data-dict"><span class="std std-ref">data_dict</span></a></p>
+</div>
+<div class="section" id="restrict-bearings-from-map">
+<span id="restrict-bearings"></span><h2>Restrict Bearings from Map<a class="headerlink" href="#restrict-bearings-from-map" title="Permalink to this headline">¶</a></h2>
+<p>Lets say we have a compass that extracts specific info we want about pets
+from a form. Here is our form data:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pet</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pet&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;fluffy&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;species&quot;</span><span class="p">:</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;owner&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Joe&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;other_pets&quot;</span><span class="p">:[</span>
+<span class="gp">... </span>            <span class="mi">2345332</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="mi">1244553</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="mi">6455666</span>
+<span class="gp">... </span>        <span class="p">]</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Now, we only need to grab name, age and species. The owner info is not
+important to us, and is at least two additional layers that do not need to
+be traversed.</p>
+<p>We could set up a compass, and to get those bearings like so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">target_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">target_keys</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">pet</span><span class="p">)</span>
+<span class="go">[(&lt;Item: &#39;name&#39;&gt;, &#39;fluffy&#39;), (&lt;Item: &#39;age&#39;&gt;, 7), (&lt;Item: &#39;species&#39;&gt;, &#39;cat&#39;)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="declare-compatible-types">
+<h2>Declare Compatible Types<a class="headerlink" href="#declare-compatible-types" title="Permalink to this headline">¶</a></h2>
+<p>In the keys example above, we may want to signal to a <a class="reference internal" href="surveyors.html#gemma.Surveyor" title="gemma.Surveyor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code></a>
+object that a compass should only be used with certain types.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">(</span><span class="n">target_types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">calls</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;keys&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">target_types</span></code> allows us to signal that only dicts can be passed to this
+compass.</p>
+<p>Now when we check if a data structure can be navigated by this compass:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_compass</span><span class="o">.</span><span class="n">is_navigable</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_compass</span><span class="o">.</span><span class="n">is_navigable</span><span class="p">(</span><span class="n">structured</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>The dict passes, but the dataclass does not. If we try to navigate each, the
+dataclass will throw a <a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonNavigableError</span></code></a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">[(&lt;Item: &#39;a&#39;&gt;, &#39;a dict&#39;), (&lt;Item: &#39;b&#39;&gt;, &#39;b dict&#39;), (&lt;Item: 1&gt;, ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">structured</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NonNavigableError</span>: <span class="n">Compass cannot map DataStructured(...</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#data-dict"><span class="std std-ref">data_dict</span></a>
+example object refs: <a class="reference internal" href="example_objects.html#structured"><span class="std std-ref">structured</span></a></p>
+</div>
+<div class="section" id="custom-compatibility">
+<h2>Custom Compatibility<a class="headerlink" href="#custom-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>What if we want to be more specific about what a compass can navigate?</p>
+<p>Using the pet form example from <a class="reference internal" href="#restrict-bearings"><span class="std std-ref">Restrict Bearings from Map</span></a>, we could restrict the compass
+to only act on <code class="docutils literal notranslate"><span class="pre">dict</span></code> objects:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">target_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">(</span><span class="n">target_types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">target_keys</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, this compass will act on any dict:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_a_pet</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;car&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;make&quot;</span><span class="p">:</span> <span class="s2">&quot;toyota&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;camry&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">7</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">not_a_pet</span><span class="p">)</span>
+<span class="go">[(&lt;Item: &#39;name&#39;&gt;, &#39;blue&#39;), (&lt;Item: &#39;age&#39;&gt;, 7)]</span>
+</pre></div>
+</div>
+<p>What we must do is create a new compass type and override
+<a class="reference internal" href="#gemma.Compass.is_navigable" title="gemma.Compass.is_navigable"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.is_navigable()</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PetCompass</span><span class="p">(</span><span class="n">Compass</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">target_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">target_keys</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">is_navigable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">dict_type</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="kc">False</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">dict_type</span> <span class="o">==</span> <span class="s2">&quot;pet&quot;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="kc">True</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>We’ve also altered <code class="docutils literal notranslate"><span class="pre">__init__</span></code> to pass our target type and restricted items.</p>
+<p>Now when we check if each <code class="docutils literal notranslate"><span class="pre">dict</span></code> is navigable:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span> <span class="o">=</span> <span class="n">PetCompass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span><span class="o">.</span><span class="n">is_navigable</span><span class="p">(</span><span class="n">pet</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span><span class="o">.</span><span class="n">is_navigable</span><span class="p">(</span><span class="n">not_a_pet</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>And when we try to get the bearings for each:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">pet</span><span class="p">)</span>
+<span class="go">[(&lt;Item: &#39;name&#39;&gt;, &#39;fluffy&#39;), (&lt;Item: &#39;age&#39;&gt;, 7), (&lt;Item: &#39;species&#39;&gt;, &#39;cat&#39;)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pet_compass</span><span class="o">.</span><span class="n">bearings</span><span class="p">(</span><span class="n">not_a_pet</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NonNavigableError</span>: <span class="n">PetCompass cannot map {&#39;type&#39;: &#39;car&#39;...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-examples">
+<h2>Additional Examples<a class="headerlink" href="#additional-examples" title="Permalink to this headline">¶</a></h2>
+<dl>
+<dt>Traversing a Dataclass.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">default_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">bearing</span> <span class="ow">in</span> <span class="n">default_compass</span><span class="o">.</span><span class="n">bearings_iter</span><span class="p">(</span><span class="n">structured</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">bearing</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">(&lt;Attr: &#39;a&#39;&gt;, &#39;a data&#39;)</span>
+<span class="go">(&lt;Attr: &#39;b&#39;&gt;, &#39;b data&#39;)</span>
+<span class="go">(&lt;Attr: &#39;one&#39;&gt;, 31)</span>
+<span class="go">(&lt;Attr: &#39;two&#39;&gt;, 32)</span>
+<span class="go">(&lt;Attr: &#39;dict_data&#39;&gt;, {&#39;a&#39;: &#39;a dict&#39;, &#39;b&#39;: &#39;b dict&#39;, 1: &#39;one dict&#39;, ...</span>
+<span class="go">(&lt;Attr: &#39;list_data&#39;&gt;, [&#39;zero list&#39;, &#39;one list&#39;, &#39;two list&#39;, ...</span>
+<span class="go">(&lt;Attr: &#39;simple&#39;&gt;, DataSimple(text=None, number=None))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Compasses can be extended in other ways. For more information on extending the
+Compass type, see: <span class="xref std std-ref">Custom-Compasses</span></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="surveyors.html" class="btn btn-neutral float-right" title="Surveyors: Traverse Structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="courses.html" class="btn btn-neutral float-left" title="Courses: Data as Paths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

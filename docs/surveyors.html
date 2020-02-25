@@ -1,0 +1,535 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Surveyors: Traverse Structures &mdash; gemma 1.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cartographers: Move Data" href="cartographers.html" />
+    <link rel="prev" title="Compasses: Describe Objects" href="compasses.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Surveyors: Traverse Structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#surveyor-class">Surveyor Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-all-courses-in-object">Get all Courses in Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#charting-with-custom-compasses">Charting with Custom Compasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-additional-end-points">Adding Additional End Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#suppressing-nonnavigableerror">Suppressing NonNavigableError</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Surveyors: Traverse Structures</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/surveyors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gemma"></span><div class="section" id="surveyors-traverse-structures">
+<span id="surveyors"></span><h1>Surveyors: Traverse Structures<a class="headerlink" href="#surveyors-traverse-structures" title="Permalink to this headline">¶</a></h1>
+<p>Surveyors chart nested data, using chained <a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> objects to build
+(<a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>, value) pairs</p>
+<div class="section" id="surveyor-class">
+<h2>Surveyor Class<a class="headerlink" href="#surveyor-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="gemma.Surveyor">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Surveyor</code><span class="sig-paren">(</span><em class="sig-param">compasses=None</em>, <em class="sig-param">compasses_extra=None</em>, <em class="sig-param">end_points=None</em>, <em class="sig-param">end_points_extra=None</em>, <em class="sig-param">course_type=&lt;class 'gemma._course.Course'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_surveyor.html#Surveyor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Surveyor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="gemma.Surveyor.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">compasses=None</em>, <em class="sig-param">compasses_extra=None</em>, <em class="sig-param">end_points=None</em>, <em class="sig-param">end_points_extra=None</em>, <em class="sig-param">course_type=&lt;class 'gemma._course.Course'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_surveyor.html#Surveyor.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Surveyor.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Charts courses through data structure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>compasses</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code>]]) – available compasses to navigate bearings</p></li>
+<li><p><strong>compasses_extra</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code>]]) – compasses to use in addition to defaults</p></li>
+<li><p><strong>end_points</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>, …], <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – types where courses should terminate</p></li>
+<li><p><strong>end_points_extra</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>, …], <code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – end points to use in addition to defaults</p></li>
+<li><p><strong>course_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>]) – course class to use for course creation</p></li>
+</ul>
+</dd>
+</dl>
+<p>The main functionality for this course is through
+<a class="reference internal" href="#gemma.Surveyor.chart_iter" title="gemma.Surveyor.chart_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Surveyor.chart_iter()</span></code></a> and <a class="reference internal" href="#gemma.Surveyor.chart" title="gemma.Surveyor.chart"><code class="xref py py-func docutils literal notranslate"><span class="pre">Surveyor.chart()</span></code></a></p>
+<p>See below documentation for usage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Surveyor.chart">
+<code class="sig-name descname">chart</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">exceptions=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_surveyor.html#Surveyor.chart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Surveyor.chart" title="Permalink to this definition">¶</a></dt>
+<dd><p>As <a class="reference internal" href="#gemma.Surveyor.chart_iter" title="gemma.Surveyor.chart_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Surveyor.chart_iter()</span></code></a>, but returns all result pairs as list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – data structure to chart</p></li>
+<li><p><strong>exceptions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – <ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: Exceptions will be raised during process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: Exceptions will be suppressed and a <a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuppressedErrors</span></code></a>
+Error will be raised at the end.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">list</span></code> of (<a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>, value) pairs</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><strong>NonNavigableError</strong></a> – If a target is found that can’t be navigated. This
+error will be suppressed if <code class="docutils literal notranslate"><span class="pre">exceptions</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><strong>SuppressedErrors</strong></a> – Raised at end if <code class="docutils literal notranslate"><span class="pre">NonNavigableError</span></code> occurs and
+<code class="docutils literal notranslate"><span class="pre">exceptions</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False`.</span> <span class="pre">Partial</span> <span class="pre">chart</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">recovered</span> <span class="pre">from</span>
+<span class="pre">``SuppressedErrors.chart_partial</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<p>See examples below.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gemma.Surveyor.chart_iter">
+<code class="sig-name descname">chart_iter</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">exceptions=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_surveyor.html#Surveyor.chart_iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Surveyor.chart_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Charts data structure, yielding each (<a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>, value) pair one at
+a time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – data structure to chart</p></li>
+<li><p><strong>exceptions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – <ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: Exceptions will be raised during process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: Exceptions will be suppressed and a <a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuppressedErrors</span></code></a>
+Error will be raised at the end.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>yields <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>, value pairs</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><strong>NonNavigableError</strong></a> – If a target is found that can’t be navigated. This
+error will be suppressed if <code class="docutils literal notranslate"><span class="pre">exceptions</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><strong>SuppressedErrors</strong></a> – Raised at end if <code class="docutils literal notranslate"><span class="pre">NonNavigableError</span></code> occurs and
+<code class="docutils literal notranslate"><span class="pre">exceptions</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<p>See examples below.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="get-all-courses-in-object">
+<h2>Get all Courses in Object<a class="headerlink" href="#get-all-courses-in-object" title="Permalink to this headline">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Surveyor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+<span class="gp">...</span>
+<span class="gp">... </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">default</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">course</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">default</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">course</span><span class="p">),</span> <span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt; | a dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;b&#39;&gt;&gt; | b dict</span>
+<span class="go">&lt;Course: &lt;Item: 1&gt;&gt; | one dict</span>
+<span class="go">&lt;Course: &lt;Item: 2&gt;&gt; | two dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt;&gt; | {&#39;one key&#39;: 1, &#39;two key&#39;: 2}</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;one key&#39;&gt;&gt; | 1</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;two key&#39;&gt;&gt; | 2</span>
+<span class="go">&lt;Course: &lt;Item: &#39;simple&#39;&gt;&gt; | DataSimple(text=&#39;string value&#39;, number=40)</span>
+<span class="go">&lt;Course: &lt;Item: &#39;simple&#39;&gt; / &lt;Attr: &#39;text&#39;&gt;&gt; | string value</span>
+<span class="go">&lt;Course: &lt;Item: &#39;simple&#39;&gt; / &lt;Attr: &#39;number&#39;&gt;&gt; | 40</span>
+</pre></div>
+</div>
+<p>example object refs: <a class="reference internal" href="example_objects.html#data-dict"><span class="std std-ref">data_dict</span></a></p>
+</div>
+<div class="section" id="charting-with-custom-compasses">
+<h2>Charting with Custom Compasses<a class="headerlink" href="#charting-with-custom-compasses" title="Permalink to this headline">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;nested&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">(</span><span class="n">target_types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">keys</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">(</span><span class="n">compasses</span><span class="o">=</span><span class="p">[</span><span class="n">dict_compass</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">course</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">custom</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">course</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt; a dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;b&#39;&gt;&gt; b dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt;&gt; {&#39;one key&#39;: 1, &#39;two key&#39;: 2}</span>
+</pre></div>
+</div>
+<p>Only <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;nested&quot;</span></code> are returned. Why did the :class:’Surveyor’ not
+recurse into <code class="docutils literal notranslate"><span class="pre">&quot;nested&quot;</span></code>, instead returning only the first layer?</p>
+<p>Because we have supplied only one <code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span> <span class="pre">--</span> <span class="pre">*tied</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">``dict``objects*</span> <span class="pre">--</span>
+<span class="pre">that</span> <span class="pre">returns</span> <span class="pre">keys</span> <span class="pre">for</span> <span class="pre">`</span></code>”a”<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">``&quot;b&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;nested&quot;</span></code> <em>only</em>. Lets override
+<a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> and set a better filter for when it should be used, something
+more granular than type.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">DictDataCompass</span><span class="p">(</span><span class="n">Compass</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;nested&#39;</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">target_types</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">keys</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">is_navigable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">is_navigable</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="kc">False</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="s1">&#39;nested&#39;</span> <span class="ow">in</span> <span class="n">other</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="kc">True</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="kc">False</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>We override <a class="reference internal" href="compasses.html#gemma.Compass.is_navigable" title="gemma.Compass.is_navigable"><code class="xref py py-func docutils literal notranslate"><span class="pre">Compass.is_navigable()</span></code></a>, checking that <code class="docutils literal notranslate"><span class="pre">target</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> through
+the <code class="docutils literal notranslate"><span class="pre">super()</span></code> call, then confirm the <code class="docutils literal notranslate"><span class="pre">&quot;nested&quot;</span></code> key exists – the defining
+characteristic of our target <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<p>We also override <code class="docutils literal notranslate"><span class="pre">__init__</span></code> to restrict our return keys rather than doing it every
+time this compass is initialized.</p>
+<p>Lets load it into a <a class="reference internal" href="#gemma.Surveyor" title="gemma.Surveyor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code></a> and try to chart <code class="docutils literal notranslate"><span class="pre">dict_data</span></code> again.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_data_compass</span> <span class="o">=</span> <span class="n">DictDataCompass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">(</span><span class="n">compasses</span><span class="o">=</span><span class="p">[</span><span class="n">dict_data_compass</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">course</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">custom</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">course</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt; a dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;b&#39;&gt;&gt; b dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt;&gt; {&#39;one key&#39;: 1, &#39;two key&#39;: 2}</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NonNavigableError</span>: <span class="n">could not find compass for f{&#39;one ...</span>
+</pre></div>
+</div>
+<p>A <a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonNavigableError</span></code></a> once the surveyor hits <code class="docutils literal notranslate"><span class="pre">'nested'</span></code>. Why?</p>
+<p>Because we have only supplied a <a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> that can handle <code class="docutils literal notranslate"><span class="pre">dict_data</span></code>,
+but no <a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> that can handle a generic <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<p>Lets use the default <a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a>. We list it after <code class="docutils literal notranslate"><span class="pre">DictDataCompass</span></code>, so
+the default is not chosen first for every object. Surveyor uses the first compatible
+<a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> it finds.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">default_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">(</span><span class="n">compasses</span><span class="o">=</span><span class="p">[</span><span class="n">dict_data_compass</span><span class="p">,</span> <span class="n">default_compass</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">course</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">custom</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">course</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt; a dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;b&#39;&gt;&gt; b dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt;&gt; {&#39;one key&#39;: 1, &#39;two key&#39;: 2}</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;one key&#39;&gt;&gt; 1</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;two key&#39;&gt;&gt; 2</span>
+</pre></div>
+</div>
+<p>Now we get the full chart.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">compasses_extra</span></code> to add our special <a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> before the default
+automatically.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">custom</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">(</span><span class="n">compasses_extra</span><span class="o">=</span><span class="p">[</span><span class="n">dict_data_compass</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">course</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">custom</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">course</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt; a dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;b&#39;&gt;&gt; b dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt;&gt; {&#39;one key&#39;: 1, &#39;two key&#39;: 2}</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;one key&#39;&gt;&gt; 1</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;two key&#39;&gt;&gt; 2</span>
+</pre></div>
+</div>
+<p>The default <a class="reference internal" href="compasses.html#gemma.Compass" title="gemma.Compass"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compass</span></code></a> is used for any objects <code class="docutils literal notranslate"><span class="pre">compasses_extra</span></code> doesn’t catch.</p>
+<p>example object refs: <a class="reference internal" href="example_objects.html#data-dict"><span class="std std-ref">data_dict</span></a></p>
+</div>
+<div class="section" id="adding-additional-end-points">
+<h2>Adding Additional End Points<a class="headerlink" href="#adding-additional-end-points" title="Permalink to this headline">¶</a></h2>
+<p>The surveyor needs to know how it recognizes where a course should terminate, and has a
+tuple of types it will not traverse into.</p>
+<p>The default types are: <code class="docutils literal notranslate"><span class="pre">(str,</span> <span class="pre">int,</span> <span class="pre">float,</span> <span class="pre">type)</span></code>. Additional types can be anything
+capable of an <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code> check.</p>
+<p>In the last example, <code class="docutils literal notranslate"><span class="pre">data_dict</span></code> contains a Dataclass, “DataSimple”. Lets say we don’t
+wish to recurse into DataSimple, instead treating it as primary data type.</p>
+<p>We can add it as an additional end points type as so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">DataSimple</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">more_end_points</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">(</span><span class="n">end_points_extra</span><span class="o">=</span><span class="p">(</span><span class="n">DataSimple</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">course</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">more_end_points</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data_dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">course</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt; a dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;b&#39;&gt;&gt; b dict</span>
+<span class="go">&lt;Course: &lt;Item: 1&gt;&gt; one dict</span>
+<span class="go">&lt;Course: &lt;Item: 2&gt;&gt; two dict</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt;&gt; {&#39;one key&#39;: 1, &#39;two key&#39;: 2}</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;one key&#39;&gt;&gt; 1</span>
+<span class="go">&lt;Course: &lt;Item: &#39;nested&#39;&gt; / &lt;Item: &#39;two key&#39;&gt;&gt; 2</span>
+<span class="go">&lt;Course: &lt;Item: &#39;simple&#39;&gt;&gt; DataSimple(text=&#39;string value&#39;, number=40)</span>
+</pre></div>
+</div>
+<p>The resulting courses do not dig further then the “simple” key.</p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">compasses</span></code> and <code class="docutils literal notranslate"><span class="pre">compasses_extra</span></code>, you can change or remove the default end
+points using the <code class="docutils literal notranslate"><span class="pre">end_points</span></code> keyword argument.</p>
+<p>To see why endpoints are important, try removing <code class="docutils literal notranslate"><span class="pre">str</span></code> as an endpoint
+and chart a dict with string values.</p>
+</div>
+<div class="section" id="suppressing-nonnavigableerror">
+<h2>Suppressing NonNavigableError<a class="headerlink" href="#suppressing-nonnavigableerror" title="Permalink to this headline">¶</a></h2>
+<p>It may be useful in certain situations to get a partial map, suppressing
+<a class="reference internal" href="exceptions.html#gemma.NonNavigableError" title="gemma.NonNavigableError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonNavigableError</span></code></a> exceptions instead of throwing them and not returning.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">exceptions</span></code> keyword will suppress errors until the end of the operation.
+Lets take a look at the normal way:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Compass</span><span class="p">,</span> <span class="n">Surveyor</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_compass</span> <span class="o">=</span> <span class="n">Compass</span><span class="p">(</span><span class="n">target_types</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;a value&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s1">&#39;dict&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b value&#39;</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">raises_non_navigable</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">(&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt;, &#39;a value&#39;)</span>
+<span class="go">(&lt;Course: &lt;Item: &#39;list&#39;&gt;&gt;, [1, 2, 3])</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NonNavigableError</span>: <span class="n">could not find compass for f[1, 2, 3]</span>
+</pre></div>
+</div>
+<p>At the <code class="docutils literal notranslate"><span class="pre">&quot;list&quot;</span></code> key, we throw an error – our surveyor cannot traverse
+lists with the provided compasses.</p>
+<p>Lets set <code class="docutils literal notranslate"><span class="pre">exceptions</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> to suppress the exception and continue
+charting.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">raises_non_navigable</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">(&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt;, &#39;a value&#39;)</span>
+<span class="go">(&lt;Course: &lt;Item: &#39;list&#39;&gt;&gt;, [1, 2, 3])</span>
+<span class="go">(&lt;Course: &lt;Item: &#39;dict&#39;&gt;&gt;, {&#39;b&#39;: &#39;b value&#39;})</span>
+<span class="go">(&lt;Course: &lt;Item: &#39;dict&#39;&gt; / &lt;Item: &#39;b&#39;&gt;&gt;, &#39;b value&#39;)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.SuppressedErrors</span>: <span class="n">some objects could not be charted</span>
+</pre></div>
+</div>
+<p>The surveyor finished before raising a <a class="reference internal" href="exceptions.html#gemma.SuppressedErrors" title="gemma.SuppressedErrors"><code class="xref py py-class docutils literal notranslate"><span class="pre">SuppressedErrors</span></code></a> exception. It can’t
+traverse into the  <code class="docutils literal notranslate"><span class="pre">list</span></code>, and moves past it.</p>
+<p>When using <a class="reference internal" href="#gemma.Surveyor.chart" title="gemma.Surveyor.chart"><code class="xref py py-func docutils literal notranslate"><span class="pre">Surveyor.chart()</span></code></a> instead of <a class="reference internal" href="#gemma.Surveyor.chart_iter" title="gemma.Surveyor.chart_iter"><code class="xref py py-func docutils literal notranslate"><span class="pre">Surveyor.chart_iter()</span></code></a>, you can
+recover a partial list from <code class="docutils literal notranslate"><span class="pre">SuppressedErrors.chart_partial</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">SuppressedErrors</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">chart</span> <span class="o">=</span> <span class="n">raises_non_navigable</span><span class="o">.</span><span class="n">chart</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">SuppressedErrors</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">chart_partial</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">[(&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt;, &#39;a value&#39;), (&lt;Course: &lt;Item: &#39;list&#39;&gt;&gt;, [1, 2, 3]), ...</span>
+</pre></div>
+</div>
+<p>Get a list of the Suppressed errors:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">chart</span> <span class="o">=</span> <span class="n">raises_non_navigable</span><span class="o">.</span><span class="n">chart</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">exceptions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">SuppressedErrors</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">[NonNavigableError(&#39;could not find compass for f[1, 2, 3]&#39;)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cartographers.html" class="btn btn-neutral float-right" title="Cartographers: Move Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="compasses.html" class="btn btn-neutral float-left" title="Compasses: Describe Objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
