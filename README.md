@@ -17,7 +17,7 @@ and applied mathematics in new ways to surveying and navigation.
 
 ## Getting Started
 For full documentation:
-[read the docs](https://illuscio-dev.github.io/islelib-py/).
+[read the docs](https://illuscio-dev.github.io/gemma-py/).
 
 For library development guide, 
 [read the docs](https://illuscio-dev.github.io/islelib-py/).
