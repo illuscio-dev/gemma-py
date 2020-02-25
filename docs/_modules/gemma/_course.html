@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gemma._course &mdash; gemma 1.2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>gemma._course</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gemma._course</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">Generator</span><span class="p">,</span>
+    <span class="n">Iterator</span><span class="p">,</span>
+    <span class="n">overload</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">._bearings</span> <span class="kn">import</span> <span class="n">BearingAbstract</span><span class="p">,</span> <span class="n">Fallback</span><span class="p">,</span> <span class="n">bearing</span><span class="p">,</span> <span class="n">_BEARING_CLASSES</span>
+<span class="kn">from</span> <span class="nn">._exceptions</span> <span class="kn">import</span> <span class="n">NullNameError</span>
+<span class="kn">from</span> <span class="nn">._flags</span> <span class="kn">import</span> <span class="n">NO_DEFAULT</span>
+
+
+<div class="viewcode-block" id="Course"><a class="viewcode-back" href="../../courses.html#gemma.Course">[docs]</a><span class="k">class</span> <span class="nc">Course</span><span class="p">:</span>
+    <span class="n">BEARINGS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_BEARING_CLASSES</span> <span class="o">+</span> <span class="p">[</span><span class="n">Fallback</span><span class="p">]</span>
+    <span class="n">BEARINGS_EXTENSION</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Course.__init__"><a class="viewcode-back" href="../../courses.html#gemma.Course.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">bearings</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;CourseInput&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="s2">&quot;CourseInput&quot;</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sequence of bearings that lead to data in a structure.</span>
+
+<span class="sd">        :param bearings: :class:`Bearing` or :class:`Course` objects to be combined into</span>
+<span class="sd">            new course.</span>
+
+<span class="sd">        The core functionality of a course are its :func:`Course.fetch` and</span>
+<span class="sd">        :func:`Course.place` methods. See their documentation below.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cast_init</span><span class="p">(</span><span class="n">bearings</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Course: {&#39; / &#39;.join(repr(x) for x in self)}&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Course</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">Course</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">_bearings</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span>
+
+    <span class="c1"># flake8 does not understand overloads, noqa comments are to ignore re-definition</span>
+    <span class="c1"># errors during lint</span>
+    <span class="nd">@overload</span>  <span class="c1"># noqa: F811</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BearingAbstract</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>  <span class="c1"># noqa: F811</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>  <span class="c1"># noqa: F811</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="s2">&quot;Course&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">this_bearing</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">this_bearing</span>
+
+    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;CourseInput&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="s2">&quot;Course&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">slices</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">slices</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="bp">self</span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="n">y</span><span class="p">])</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parent course of current course</span>
+
+<span class="sd">        :return: parent</span>
+
+<span class="sd">        &gt;&gt;&gt; from gemma import Course</span>
+<span class="sd">        &gt;&gt;&gt; example = Course() / &quot;one&quot; / &quot;two&quot; / &quot;three&quot;</span>
+<span class="sd">        &gt;&gt;&gt; example</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;three&#39;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example.parent</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Course</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">end_point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BearingAbstract</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Last bearing of current course</span>
+
+<span class="sd">        :return: end point of course</span>
+
+<span class="sd">        &gt;&gt;&gt; from gemma import Course</span>
+<span class="sd">        &gt;&gt;&gt; example = Course() / &quot;one&quot; / &quot;two&quot; / &quot;three&quot;</span>
+<span class="sd">        &gt;&gt;&gt; example</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;three&#39;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example.end_point</span>
+<span class="sd">        &lt;Fallback: &#39;three&#39;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Course.with_end_point"><a class="viewcode-back" href="../../courses.html#gemma.Course.with_end_point">[docs]</a>    <span class="k">def</span> <span class="nf">with_end_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end_point</span><span class="p">:</span> <span class="s2">&quot;CourseInput&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns course with new end point.</span>
+
+<span class="sd">        :param end_point: bearing to use as new end point.</span>
+<span class="sd">        :return: New Course.</span>
+
+<span class="sd">        &gt;&gt;&gt; from gemma import Course</span>
+<span class="sd">        &gt;&gt;&gt; example = Course() / &quot;one&quot; / &quot;two&quot; / &quot;three&quot;</span>
+<span class="sd">        &gt;&gt;&gt; example</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;three&#39;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example.with_end_point(&quot;new&quot;)</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;one&#39;&gt; / &lt;Fallback: &#39;two&#39;&gt; / &lt;Fallback: &#39;new&#39;&gt;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Course</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">end_point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Course.starts_with"><a class="viewcode-back" href="../../courses.html#gemma.Course.starts_with">[docs]</a>    <span class="k">def</span> <span class="nf">starts_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="s2">&quot;Course&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if course starts with ``other`` :class:`Bearing` or :class:`Course`.</span>
+
+<span class="sd">        :param other: Bearing or Sub-Course to check</span>
+<span class="sd">        :return: True: Course starts with ``other``</span>
+
+<span class="sd">        &gt;&gt;&gt; from gemma import Course, Fallback</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example = Course() / &quot;one&quot; / &quot;two&quot; / &quot;three&quot; / &quot;four&quot;</span>
+<span class="sd">        &gt;&gt;&gt; head = Course() / &quot;one&quot; / &quot;two&quot;</span>
+<span class="sd">        &gt;&gt;&gt; middle = Course() / &quot;two&quot; / &quot;three&quot;</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example.starts_with(Fallback(&quot;one&quot;))</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; example.starts_with(Fallback(&quot;two&quot;))</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example.starts_with(head)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; example.starts_with(middle)</span>
+<span class="sd">        False</span>
+
+<span class="sd">        For more detail, see the :ref:`contains` section below.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">BearingAbstract</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">other</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)]</span> <span class="o">==</span> <span class="n">other</span></div>
+
+<div class="viewcode-block" id="Course.ends_with"><a class="viewcode-back" href="../../courses.html#gemma.Course.ends_with">[docs]</a>    <span class="k">def</span> <span class="nf">ends_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="s2">&quot;Course&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if course ends with ``other`` :class:`Bearing` or :class:`Course`.</span>
+
+<span class="sd">        :param other: Bearing or Sub-Course to check</span>
+<span class="sd">        :return: True: Course ends with ``other``</span>
+
+<span class="sd">        &gt;&gt;&gt; from gemma import Course(), Fallback</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example = Course() / &quot;one&quot; / &quot;two&quot; / &quot;three&quot; / &quot;four&quot;</span>
+<span class="sd">        &gt;&gt;&gt; tail = Course() / &quot;three&quot; / &quot;four&quot;</span>
+<span class="sd">        &gt;&gt;&gt; middle = Course() / &quot;two&quot; / &quot;three&quot;</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example.ends_with(Fallback(&quot;four&quot;))</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; example.ends_with(Fallback(&quot;three&quot;))</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example.ends_with(tail)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; example.ends_with(middle)</span>
+<span class="sd">        False</span>
+
+<span class="sd">        For more detail, see the :ref:`contains` section below.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">BearingAbstract</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">other</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">start</span><span class="p">:]</span> <span class="o">==</span> <span class="n">other</span></div>
+
+<div class="viewcode-block" id="Course.replace"><a class="viewcode-back" href="../../courses.html#gemma.Course.replace">[docs]</a>    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">],</span> <span class="n">replacement</span><span class="p">:</span> <span class="s2">&quot;CourseInput&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace bearings at index / slice with ``replacement``</span>
+
+<span class="sd">        :param index: item(s) to replace</span>
+<span class="sd">        :param replacement: Replacement bearing / course</span>
+<span class="sd">        :return:</span>
+
+<span class="sd">        &gt;&gt;&gt; course = PORT / &quot;thing&quot; / 10 / &quot;key&quot;</span>
+<span class="sd">        &gt;&gt;&gt; course.replace(1, 11)</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;thing&#39;&gt; / &lt;Item: 11&gt; / &lt;Fallback: &#39;key&#39;&gt;&gt;</span>
+
+<span class="sd">        &gt;&gt;&gt; course.replace(slice(1, 3), 14)</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;thing&#39;&gt; / &lt;Item: 14&gt; / &lt;Fallback: &#39;sub-key&#39;&gt;&gt;</span>
+
+<span class="sd">        &gt;&gt;&gt; course.replace(slice(1, 3), PORT / 14 / &quot;key2&quot;)</span>
+<span class="sd">        &lt;Course: &lt;Fallback: &#39;thing&#39;&gt; / &lt;Item: 14&gt; / &lt;Fallback: &#39;key2&#39;&gt; / ...&gt;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bearing_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;CourseInput&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bearings</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">bearing_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">index</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">index</span><span class="o">.</span><span class="n">start</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">bearing_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">replacement</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Course</span><span class="p">(</span><span class="o">*</span><span class="n">bearing_list</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Course.fetch"><a class="viewcode-back" href="../../courses.html#gemma.Course.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">NO_DEFAULT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># noqa: F811</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Traverses ``target``, getting data at end point of course.</span>
+
+<span class="sd">        :param target: data structure to get data from.</span>
+<span class="sd">        :param default: Optional parameter to pass default value. When passed this value</span>
+<span class="sd">            will be used if the course does not exist on ``target``.</span>
+<span class="sd">        :return: Value at end of course.</span>
+<span class="sd">        :raises NullNameError: if any bearing cannot be found in ``target``</span>
+
+<span class="sd">        Data is fetched by iterating through a course, running each bearing&#39;s</span>
+<span class="sd">        :func:`BearingAbstract.fetch` method on the previously fetched object.</span>
+
+<span class="sd">        Lets use the :ref:`data_dict` object from :func:`test_objects`</span>
+<span class="sd">        as an example.</span>
+
+<span class="sd">            &gt;&gt;&gt; from gemma import Course(), Attr</span>
+<span class="sd">            &gt;&gt;&gt; from gemma.test_objects import test_objects</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; simple, data_dict, data_list, structured, target = test_objects()</span>
+<span class="sd">            &gt;&gt;&gt; example_course = Course() / &quot;[nested]&quot; / &quot;[one key]&quot;</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; example_course.fetch(data_dict)</span>
+<span class="sd">            1</span>
+
+<span class="sd">        What is happening in the example above? This course contains two</span>
+<span class="sd">        :class:`Item` bearings. The :func:`Item.fetch` method gets a key</span>
+<span class="sd">        or index. When the course executes a fetch, it first fetches the ``&quot;nested&quot;``</span>
+<span class="sd">        key from the ``data_dict`` object. This returns a sub_dictionary with the</span>
+<span class="sd">        data: ``{&quot;one key&quot;: 1, &quot;two key&quot;: 2}``</span>
+
+<span class="sd">        The next bearing&#39;s fetch method is called on ``&quot;one key&quot;`` of the sub-dict,</span>
+<span class="sd">        returning ``1``. This is the end of the course, so ``1`` is returned as the</span>
+<span class="sd">        final value of the fetch.</span>
+
+<span class="sd">        Each fetch down the chain follows the rules established in :ref:`Bearings`.</span>
+
+<span class="sd">        If a bearing cannot be found at any point in the chain, :class:`NullNameError`</span>
+<span class="sd">        is raised.</span>
+
+<span class="sd">            &gt;&gt;&gt; bad_course = Course() / &quot;[non_existent]&quot; / &quot;[one key]&quot;</span>
+<span class="sd">            &gt;&gt;&gt; bad_course.fetch(data_dict)</span>
+<span class="sd">            Traceback (most recent call last):</span>
+<span class="sd">                ...</span>
+<span class="sd">            gemma._exceptions.NullNameError: [non_existent]</span>
+
+<span class="sd">        We can supply a default value for non-existent targets like so:</span>
+
+<span class="sd">            &gt;&gt;&gt; bad_course.fetch(data_dict, default=&quot;default value fetched!&quot;)</span>
+<span class="sd">            default value fetched!</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">this_bearing</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="n">this_bearing</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">NullNameError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_DEFAULT</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">default</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">error</span>
+
+        <span class="k">return</span> <span class="n">target</span></div>
+
+<div class="viewcode-block" id="Course.place"><a class="viewcode-back" href="../../courses.html#gemma.Course.place">[docs]</a>    <span class="k">def</span> <span class="nf">place</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Traverses ``target`` to place data at :func:`Course.end_point`.</span>
+
+<span class="sd">        :param target: data structure to place data on.</span>
+<span class="sd">        :param value: value to place.</span>
+<span class="sd">        :return: None. Changes are made in-place.</span>
+<span class="sd">        :raises NullNameError: if any bearing cannot be found in ``target``</span>
+
+<span class="sd">        :func:`Course.fetch` is called on the acting course&#39;s :func:`Course.parent`,</span>
+<span class="sd">        returning the object that needs to be modified.</span>
+
+<span class="sd">        :func:`BearingAbstract.place` of :func:`Course.end_point` is called on the</span>
+<span class="sd">        object to place ``value``.</span>
+
+<span class="sd">        Lets look at an example using the :ref:`target` object from</span>
+<span class="sd">        :func:`test_objects`.</span>
+
+<span class="sd">        &gt;&gt;&gt; from gemma import Course</span>
+<span class="sd">        &gt;&gt;&gt; from gemma.test_objects import test_objects</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; simple, data_dict, data_list, structured, target = test_objects()</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example_course = Course() / &quot;dict_target&quot; / &quot;new key&quot;</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; example_course.place(target, 1)</span>
+<span class="sd">        &gt;&gt;&gt; target.dict_target[&quot;new key&quot;]</span>
+<span class="sd">        1</span>
+
+<span class="sd">        See examples from the :class:`Course.fetch` method in the documentation below.</span>
+<span class="sd">        :class:`Course.place` abides by the same rules, except final bearing, which uses</span>
+<span class="sd">        :func:`BearingAbstract.place` instead of :func:`BearingAbstract.fetch`, and</span>
+<span class="sd">        always returns ``None``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">this_bearing</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">new_target</span> <span class="o">=</span> <span class="n">this_bearing</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">NullNameError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">this_bearing</span><span class="o">.</span><span class="n">factory_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">error</span>
+                <span class="n">new_target</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># if we have a type factory, we generate the node, and place it where it</span>
+            <span class="c1"># should go on the current target</span>
+            <span class="n">factory</span> <span class="o">=</span> <span class="n">this_bearing</span><span class="o">.</span><span class="n">factory_type</span>
+            <span class="k">if</span> <span class="n">factory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_target</span><span class="p">,</span> <span class="n">factory</span><span class="p">):</span>
+                <span class="n">new_node</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">this_bearing</span><span class="o">.</span><span class="n">init_factory</span><span class="p">()</span>
+                <span class="c1"># some implementation may want to know that we are calling this as the</span>
+                <span class="c1">#   factory version of the method</span>
+                <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;place_factory&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+                <span class="n">this_bearing</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">new_node</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">new_target</span> <span class="o">=</span> <span class="n">new_node</span>
+
+            <span class="n">target</span> <span class="o">=</span> <span class="n">new_target</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_point</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_cast_arg</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">new</span><span class="p">:</span> <span class="s2">&quot;CourseInput&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="n">to_cast</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;CourseInput&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">Course</span><span class="p">):</span>
+            <span class="n">to_cast</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">new</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">to_cast</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">to_cast</span> <span class="o">=</span> <span class="p">[</span><span class="n">new</span><span class="p">]</span>
+
+        <span class="n">bearing_classes</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">BEARINGS_EXTENSION</span> <span class="o">+</span> <span class="bp">cls</span><span class="o">.</span><span class="n">BEARINGS</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">to_cast</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">BearingAbstract</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">bearing</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">bearing_classes</span><span class="o">=</span><span class="n">bearing_classes</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_cast_init</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;CourseInput&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">BearingAbstract</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">this_bearing</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cast_arg</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">this_bearing</span></div>
+
+
+<span class="n">CourseInput</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Course</span><span class="p">,</span> <span class="n">BearingAbstract</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+
+<span class="n">PORT</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
