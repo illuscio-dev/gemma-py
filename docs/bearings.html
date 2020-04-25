@@ -1,0 +1,1498 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Bearings: Access Data Generically &mdash; gemma 1.2.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Courses: Data as Paths" href="courses.html" />
+    <link rel="prev" title="Example Objects" href="example_objects.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bearings: Access Data Generically</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bearingabstract-base-type">BearingAbstract Base Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bearing-shorthand">Bearing Shorthand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementations">Implementations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#attr-type">Attr Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#item-type">Item Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#call-type">Call Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fallback-type">Fallback Type</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#casting-bearings">Casting Bearings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sorting-bearings">Sorting Bearings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-bearing-equality">Checking Bearing Equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bearing-factory-method">Bearing Factory Method</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Bearings: Access Data Generically</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/bearings.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gemma"></span><div class="section" id="bearings-access-data-generically">
+<span id="bearings"></span><h1>Bearings: Access Data Generically<a class="headerlink" href="#bearings-access-data-generically" title="Permalink to this headline">¶</a></h1>
+<p>A bearing details how to fetch or place data of a given <code class="docutils literal notranslate"><span class="pre">name</span></code> on a target object.</p>
+<p>E.g., you would fetch <code class="docutils literal notranslate"><span class="pre">name</span></code> from a dict using <code class="docutils literal notranslate"><span class="pre">dict[name]</span></code>, but for a dataclass
+using <code class="docutils literal notranslate"><span class="pre">data.name</span></code>.</p>
+<p>Bearings are the building blocks of a <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects, which fetch/place a
+sequence of bearings on a complex data structure.</p>
+<div class="section" id="bearingabstract-base-type">
+<span id="bearing-abstract"></span><h2>BearingAbstract Base Type<a class="headerlink" href="#bearingabstract-base-type" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a> outlines the methods and attributes that must/may be overridden
+by implementations.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>required?</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemma.BearingAbstract.fetch" title="gemma.BearingAbstract.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.fetch()</span></code></a></p></td>
+<td><p>method</p></td>
+<td><p>yes</p></td>
+<td><p>Gets data from object at <code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemma.BearingAbstract.place" title="gemma.BearingAbstract.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.place()</span></code></a></p></td>
+<td><p>method</p></td>
+<td><p>yes</p></td>
+<td><p>Sets data on object at <code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">__str__</span></code></p></td>
+<td><p>method</p></td>
+<td><p>yes</p></td>
+<td><p>String shorthand</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NAME_TYPES</span></code></p></td>
+<td><p>cls attribute</p></td>
+<td><p>encouraged</p></td>
+<td><p>Compatible <code class="docutils literal notranslate"><span class="pre">name</span></code> <code class="docutils literal notranslate"><span class="pre">type</span></code> (s)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">REGEX</span></code></p></td>
+<td><p>cls attribute</p></td>
+<td><p>encouraged</p></td>
+<td><p>String shorthand pattern</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemma.BearingAbstract.is_compatible" title="gemma.BearingAbstract.is_compatible"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.is_compatible()</span></code></a></p></td>
+<td><p>method</p></td>
+<td><p>no</p></td>
+<td><p>Can <code class="docutils literal notranslate"><span class="pre">name</span></code> be cast to bearing?</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemma.BearingAbstract.name_from_str" title="gemma.BearingAbstract.name_from_str"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.name_from_str()</span></code></a></p></td>
+<td><p>method</p></td>
+<td><p>no</p></td>
+<td><p>Converts string to <code class="docutils literal notranslate"><span class="pre">name</span></code> value</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemma.BearingAbstract.init_factory" title="gemma.BearingAbstract.init_factory"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.init_factory()</span></code></a></p></td>
+<td><p>method</p></td>
+<td><p>no</p></td>
+<td><p>Returns initialized factory_type</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="gemma.BearingAbstract">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">BearingAbstract</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">factory</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#BearingAbstract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.BearingAbstract" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="gemma.BearingAbstract.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">factory</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#BearingAbstract.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.BearingAbstract.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> bearings.</p>
+<p><strong>inherits from:</strong> <code class="docutils literal notranslate"><span class="pre">Generic[_NameType]</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[~_NameType, <code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>[~_NameType]]) – name of key/index/attribute/method/etc to act on.</p></li>
+<li><p><strong>factory</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[~FactoryType]]) – <code class="docutils literal notranslate"><span class="pre">type</span></code> to be used as default value if <a class="reference internal" href="courses.html#gemma.Course.place" title="gemma.Course.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Course.place()</span></code></a>
+hits empty or non-existent value so structure can be built</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Class-level Attributes</dt><dd><ul class="simple">
+<li><p><strong>REGEX</strong>: ( <code class="docutils literal notranslate"><span class="pre">re.Pattern</span></code> ) - Regex pattern to match string shorthand</p></li>
+<li><p><strong>NAME_TYPES</strong> ( <code class="docutils literal notranslate"><span class="pre">List[Union[Type,</span> <span class="pre">Any]]</span></code> ) - <code class="docutils literal notranslate"><span class="pre">type</span></code> ( or <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of
+types ) that <code class="docutils literal notranslate"><span class="pre">name</span></code> can be.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.BearingAbstract.factory_type">
+<em class="property">property </em><code class="sig-name descname">factory_type</code><a class="headerlink" href="#gemma.BearingAbstract.factory_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read-only property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[~FactoryType]]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">factory</span></code> passed to <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span><span class="o">.</span><span class="n">factory_type</span>
+<span class="go">dict</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.BearingAbstract.fetch">
+<code class="sig-name descname">fetch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#BearingAbstract.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.BearingAbstract.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>MUST BE IMPLEMENTED</strong></p>
+<p>Fetches value from target object by <a class="reference internal" href="#gemma.BearingAbstract.name" title="gemma.BearingAbstract.name"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.name()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to fetch value from</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>value to be fetched</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – generic error when bearing cannot be found</p></li>
+<li><p><strong>TypeError</strong> – when <code class="docutils literal notranslate"><span class="pre">target</span></code> is wrong type for bearing</p></li>
+</ul>
+</dd>
+</dl>
+<p>See documentation of the default Bearing implementations for examples:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#gemma.Attr.fetch" title="gemma.Attr.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Attr.fetch()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Item.fetch" title="gemma.Item.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Item.fetch()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Call.fetch" title="gemma.Call.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Call.fetch()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Fallback.fetch" title="gemma.Fallback.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Fallback.fetch()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.BearingAbstract.init_factory">
+<code class="sig-name descname">init_factory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#BearingAbstract.init_factory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.BearingAbstract.init_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>MAY BE IMPLEMENTED</strong></p>
+<p>Returns an initialized version of <code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.factory()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>~FactoryType</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>initialized data object</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – is factory is not callable</p>
+</dd>
+</dl>
+<p>DEFAULT IMPLEMENTATION: initializes object with no parameters.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span><span class="o">.</span><span class="n">init_factory</span><span class="p">()</span>
+<span class="go">{}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.BearingAbstract.is_compatible">
+<em class="property">classmethod </em><code class="sig-name descname">is_compatible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#BearingAbstract.is_compatible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.BearingAbstract.is_compatible" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>MAY BE IMPLEMENTED</strong></p>
+<p>Checks whether the <code class="docutils literal notranslate"><span class="pre">name</span></code> can be cast to current type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – value to be cast</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: Can be cast.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: Cannot be cast</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p>DEFAULT IMPLEMENTATION: checks whether the type of <code class="docutils literal notranslate"><span class="pre">name</span></code> is in
+<code class="docutils literal notranslate"><span class="pre">cls.NAME_TYPES</span></code>.</p>
+<p>Most Bearing implementations will not need to override this method, instead
+supplying a list of acceptable types to <code class="docutils literal notranslate"><span class="pre">cls.NAME_TYPES</span></code>.</p>
+<p>However, some Bearings may depend on criteria other than type and override this
+method, possibly making <code class="docutils literal notranslate"><span class="pre">cls.NAME_TYPES</span></code> irrelevant.</p>
+<p>For example, a bearing used to fetch and set data from the <code class="docutils literal notranslate"><span class="pre">dataclasses</span></code>
+module might re-implement <a class="reference internal" href="#gemma.BearingAbstract.is_compatible" title="gemma.BearingAbstract.is_compatible"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.is_compatible()</span></code></a> as a wrapper for
+<code class="docutils literal notranslate"><span class="pre">dataclasses.is_dataclass()</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.BearingAbstract.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#gemma.BearingAbstract.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read-only property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>~_NameType</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">name</span></code> passed to <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span>
+<span class="go">a</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.BearingAbstract.name_from_str">
+<em class="property">classmethod </em><code class="sig-name descname">name_from_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#BearingAbstract.name_from_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.BearingAbstract.name_from_str" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>MAY BE IMPLEMENTED</strong></p>
+<p>Casts string to appropriate type for <code class="docutils literal notranslate"><span class="pre">name</span></code> param of <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – text to cast</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>cast value.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if <code class="docutils literal notranslate"><span class="pre">text</span></code> is not cast-able.</p>
+</dd>
+</dl>
+<p>DEFAULT IMPLEMENTATION: Tests if the <code class="docutils literal notranslate"><span class="pre">text</span></code> matches to the regex pattern in
+<code class="docutils literal notranslate"><span class="pre">BearingAbstract.REGEX</span></code>, then extracts name from pattern.</p>
+<p>Raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if no match.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.BearingAbstract.place">
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#BearingAbstract.place"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.BearingAbstract.place" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>MUST BE IMPLEMENTED</strong></p>
+<p>Sets <code class="docutils literal notranslate"><span class="pre">value</span></code> at <a class="reference internal" href="#gemma.BearingAbstract.name" title="gemma.BearingAbstract.name"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.name()</span></code></a> of target object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – target object to set value</p></li>
+<li><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – value to set</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns None</dt>
+<dd class="field-even"><p>method should not return anything</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a> should be raised if bearing
+cannot be placed</p></li>
+<li><p><strong>TypeError</strong> – When <code class="docutils literal notranslate"><span class="pre">target</span></code> is wrong type for Bearing</p></li>
+</ul>
+</dd>
+</dl>
+<p>See documentation of the default Bearing implementations for examples.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#gemma.Attr.place" title="gemma.Attr.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Attr.place()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Item.place" title="gemma.Item.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Item.place()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Call.place" title="gemma.Call.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Call.place()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Fallback.place" title="gemma.Fallback.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Fallback.place()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bearing-shorthand">
+<h2>Bearing Shorthand<a class="headerlink" href="#bearing-shorthand" title="Permalink to this headline">¶</a></h2>
+<p>The default implementations of <a class="reference internal" href="#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a> checks for the following
+patterns when determining if a string can be cast to it’s type:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 20%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>class</p></th>
+<th class="head"><p>shorthand</p></th>
+<th class="head"><p>note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a></p></td>
+<td><p>&#64;name</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a></p></td>
+<td><p>[name]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a></p></td>
+<td><p>name()</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a></p></td>
+<td><p>name</p></td>
+<td><p>accepts all values</p></td>
+</tr>
+</tbody>
+</table>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">Attr</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">text does not match regex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">Attr</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s1">&#39;@name&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;name&#39;</span>
+</pre></div>
+</div>
+<p>This is slightly different from instantiating the class directly, which does
+not check/parse the input value of a string, instead using whatever it is fed.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;name&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;@name&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;@name&#39;</span>
+</pre></div>
+</div>
+<p>Likewise, <code class="docutils literal notranslate"><span class="pre">str(BearingAbstract)</span></code> should return the properly formatted shorthand
+through <code class="docutils literal notranslate"><span class="pre">BearingAbstract.__str__</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Call</span><span class="p">,</span> <span class="n">Bearing</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">))</span>
+<span class="go">&#39;@a&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">))</span>
+<span class="go">&#39;[a]&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">Call</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">))</span>
+<span class="go">&#39;a()&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">))</span>
+<span class="go">&#39;a&#39;</span>
+</pre></div>
+</div>
+<p>This allows for string-encoded bearings which can be easily cast by <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>
+objects. For example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;nested&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;a value&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;b value&#39;</span><span class="p">}}</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_fetch</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;[nested]&#39;</span> <span class="o">/</span> <span class="s1">&#39;keys()&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_fetch</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">dict_keys([&#39;a&#39;, &#39;b&#39;])</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> auto-casts strings using a configurable factory method.</p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.from_string()</span></code> can be overridden when implementing a
+custom Bearing if more granularity is needed than setting the class’ <code class="docutils literal notranslate"><span class="pre">REGEX</span></code> field.</p>
+</div>
+<div class="section" id="implementations">
+<h2>Implementations<a class="headerlink" href="#implementations" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">gemma</span></code> comes with four implementations of <a class="reference internal" href="#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a>, covering most
+basic data object API’s.</p>
+<div class="section" id="attr-type">
+<span id="attr"></span><h3>Attr Type<a class="headerlink" href="#attr-type" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="gemma.Attr">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Attr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">factory</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Attr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attr fetches and places data on a target’s attribute.</p>
+<p><strong>inherits from:</strong> <a class="reference internal" href="#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a></p>
+<p><strong>name types:</strong> Attr only accepts <code class="docutils literal notranslate"><span class="pre">str</span></code> as <code class="docutils literal notranslate"><span class="pre">name</span></code> value.</p>
+<p><strong>shorthand:</strong> <code class="docutils literal notranslate"><span class="pre">&quot;&#64;name&quot;</span></code></p>
+<dl class="py method">
+<dt id="gemma.Attr.fetch">
+<code class="sig-name descname">fetch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Attr.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Attr.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches attribute of target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Object to fetch attribute from</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Value of attribute</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – if attribute does not exist</p>
+</dd>
+</dl>
+<p>Equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">Data</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">&#39;value&#39;</span>
+</pre></div>
+</div>
+<p>If target does not have an attribute of bearing.name:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  <span class="c">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">@b&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.Attr.place">
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Attr.place"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Attr.place" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets Attribute of target to <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Object to set attribute on</p></li>
+<li><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Value to set on attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – if attribute does not exist</p>
+</dd>
+</dl>
+<p>Equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">setattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example, using <code class="docutils literal notranslate"><span class="pre">data</span></code> from the fetch example above:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">a</span>
+<span class="go">&#39;value&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;changed&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">a</span>
+<span class="go">&#39;changed&#39;</span>
+</pre></div>
+</div>
+<p>If target does not have an attribute of bearing.name:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;changed again&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  <span class="c">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">@b</span>
+</pre></div>
+</div>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">setattr()</span></code>, <a class="reference internal" href="#gemma.Attr.place" title="gemma.Attr.place"><code class="xref py py-func docutils literal notranslate"><span class="pre">Attr.place()</span></code></a> cannot be used to declare arbitrary
+attributes. Non-existent attributes will raise a NullNameError.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="item-type">
+<span id="item"></span><h3>Item Type<a class="headerlink" href="#item-type" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="gemma.Item">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">factory</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Item fetches and places data on a target’s index or mapping</p>
+<p><strong>inherits from:</strong> <a class="reference internal" href="#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a></p>
+<p><strong>name types:</strong> <code class="docutils literal notranslate"><span class="pre">Any</span></code>.</p>
+<p><strong>shorthand:</strong> <code class="docutils literal notranslate"><span class="pre">&quot;[name]&quot;</span></code></p>
+<dl class="py method">
+<dt id="gemma.Item.fetch">
+<code class="sig-name descname">fetch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Item.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Item.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches data at index or key of <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to fetch data from</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>value of index/key</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – if index/key does not exist</p></li>
+<li><p><strong>TypeError</strong> – if Target does not have a valid <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method</p></li>
+</ul>
+</dd>
+</dl>
+<p>Fetch data from a list:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Item</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="go">&#39;zero&#39;</span>
+</pre></div>
+</div>
+<p>Fetch data from a dict:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;a value&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;b value&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">&#39;b value&#39;</span>
+</pre></div>
+</div>
+<p>Fetching an Index / Item that does not exist raises <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">out_of_index</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out_of_index</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">[5]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bad_key</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bad_key</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">[c]</span>
+</pre></div>
+</div>
+<p>An invalid name raises a <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a> regardless of whether
+the <code class="docutils literal notranslate"><span class="pre">target</span></code> object would normally raise a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> or <code class="docutils literal notranslate"><span class="pre">IndexError</span></code>.</p>
+<p>Fetching from a <code class="docutils literal notranslate"><span class="pre">target</span></code> which does not support <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> raises a
+<code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">no_get_item</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bad_key</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">no_get_item</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;int&#39; object is not subscriptable</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.Item.place">
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Item.place"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Item.place" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets <code class="docutils literal notranslate"><span class="pre">value</span></code> at Index/Key of <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to set <code class="docutils literal notranslate"><span class="pre">value</span></code> on.</p></li>
+<li><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – value to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><strong>NullNameError</strong></a> – When Index/Key cannot be set</p></li>
+<li><p><strong>TypeError</strong> – When <code class="docutils literal notranslate"><span class="pre">target</span></code> does not support <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<p>Changing an existing dict key:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Item</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;a value&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;b value&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">existing_item</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">existing_item</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="s2">&quot;changed&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span>
+<span class="go">{&#39;a&#39;: &#39;a value&#39;, &#39;b&#39;: &#39;changed&#39;}</span>
+</pre></div>
+</div>
+<p>Setting a new dict key:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_item</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_item</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="s2">&quot;new&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span>
+<span class="go">{&#39;a&#39;: &#39;a value&#39;, &#39;b&#39;: &#39;changed&#39;, &#39;c&#39;: &#39;new&#39;}</span>
+</pre></div>
+</div>
+<p>Changing an existing list index:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="s2">&quot;changed&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;changed&#39;, &#39;one&#39;, &#39;two&#39;]</span>
+</pre></div>
+</div>
+<p>Changing an index out of range does not result in <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a>,
+as it does with <a class="reference internal" href="#gemma.Item.fetch" title="gemma.Item.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">Item.fetch()</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">out_of_index</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out_of_index</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="s2">&quot;new value&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;changed&#39;, &#39;one&#39;, &#39;two&#39;, None, None, &#39;new value&#39;]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">None</span></code> is inserted in any missing indexes between the last existing index and
+the new index.</p>
+<p>Attempting to place a value on a <code class="docutils literal notranslate"><span class="pre">target</span></code> that does not support
+<code class="docutils literal notranslate"><span class="pre">__setitem__</span></code> raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cannot_set</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cannot_set</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_tuple</span><span class="p">,</span> <span class="s2">&quot;changed&quot;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  <span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;tuple&#39; object does not support item assignment</span>
+</pre></div>
+</div>
+<p>If the object would normally raise a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> or <code class="docutils literal notranslate"><span class="pre">IndexError</span></code>, it is cast
+to a <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a>.</p>
+<p>Let us create a dict class that raises a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> when attempting to set any
+key that is not present upon initialization:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">StrictDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">KeyError</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strict</span> <span class="o">=</span> <span class="n">StrictDict</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;a value&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;b value&quot;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strict</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;changed&quot;</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">KeyError</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> ‘s place method will cast the <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> to a
+<a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">raises_key</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raises_key</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">strict</span><span class="p">,</span> <span class="s2">&quot;changed&quot;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">[c]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="call-type">
+<span id="call"></span><h3>Call Type<a class="headerlink" href="#call-type" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="gemma.Call">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Call</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">func_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Call"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call fetches and sets data through a target’s <code class="docutils literal notranslate"><span class="pre">target.name()</span></code> method.</p>
+<p><strong>inherits from:</strong> <a class="reference internal" href="#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a></p>
+<p><strong>name types:</strong> Call only accepts <code class="docutils literal notranslate"><span class="pre">str</span></code> as <code class="docutils literal notranslate"><span class="pre">name</span></code> values.</p>
+<p><strong>shorthand:</strong> <code class="docutils literal notranslate"><span class="pre">&quot;name()&quot;</span></code></p>
+<dl class="py method">
+<dt id="gemma.Call.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">func_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Call.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Call.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – method name to act on</p></li>
+<li><p><strong>func_args</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>]) – <code class="docutils literal notranslate"><span class="pre">*args</span></code> to pass to method when fetching or placing</p></li>
+<li><p><strong>func_kwargs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]) – <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> to pass to method when fetching or placing</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Class Attributes:</dt><dd><ul class="simple">
+<li><p><strong>VALUE_ARG (</strong> <code class="docutils literal notranslate"><span class="pre">Any</span></code> <strong>):</strong> object to act as placeholder in
+<code class="docutils literal notranslate"><span class="pre">func_args</span></code> and <code class="docutils literal notranslate"><span class="pre">func_kwargs</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.Call.fetch">
+<code class="sig-name descname">fetch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Call.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Call.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches value from method of <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Object to call method on.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return of method</p>
+</dd>
+</dl>
+<p>Getting the keys of a dict:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Call</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;a value&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;b value&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">method</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;keys&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">method</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">dict_keys([&#39;a&#39;, &#39;b&#39;])</span>
+</pre></div>
+</div>
+<p>If the method does not exist, a <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a> is raised.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">invalid_method</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;does_not_exist&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">invalid_method</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">gemma._exceptions.NullNameError</span>: <span class="n">does_not_exist()</span>
+</pre></div>
+</div>
+<p>When fetching a value, call will pass the <code class="docutils literal notranslate"><span class="pre">func_args</span></code> and <code class="docutils literal notranslate"><span class="pre">func_kwargs</span></code>
+passed to <code class="docutils literal notranslate"><span class="pre">__init__</span></code> as <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">*kwargs</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;repeat&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;repeat&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">method</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;repeat&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">method</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>This is equivalent to</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;repeat&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.Call.place">
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Call.place"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Call.place" title="Permalink to this definition">¶</a></dt>
+<dd><p>Places value with method of <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Object to call method on</p></li>
+<li><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – value to pass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">value</span></code> is passed as the first argument to the given method.</p>
+<p>Appending value at end of list:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Call</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adds_value</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;append&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adds_value</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;zero&#39;, &#39;one&#39;, &#39;two&#39;, &#39;three&#39;]</span>
+</pre></div>
+</div>
+<p>Any additional args are passed as positional arguments, <em>after</em> <code class="docutils literal notranslate"><span class="pre">value</span></code>. Let
+us create a list class with a method that will attempt to cast a value to a
+given type before appending it to the list:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MultiArg</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">cast_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cast_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">value</span> <span class="o">=</span> <span class="n">cast_type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">pass</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">args_reversed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cast_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">cast_append</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">cast_type</span><span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>We can pass <code class="docutils literal notranslate"><span class="pre">str</span></code> to the <code class="docutils literal notranslate"><span class="pre">cast_type</span></code> parameter by setting it as the first
+additional argument to <a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="n">MultiArg</span><span class="p">((</span><span class="s1">&#39;zero&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;zero&#39;, &#39;one&#39;, &#39;two&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">casts_str</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s1">&#39;cast_append&#39;</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">casts_str</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;zero&#39;, &#39;one&#39;, &#39;two&#39;, &#39;3&#39;]</span>
+</pre></div>
+</div>
+<p>This is equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span><span class="o">.</span><span class="n">cast_append</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also pass <code class="docutils literal notranslate"><span class="pre">cast_type</span></code> as a keyword argument.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">casts_str</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s1">&#39;cast_append&#39;</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cast_type&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">casts_str</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;zero&#39;, &#39;one&#39;, &#39;two&#39;, &#39;3&#39;, &#39;4&#39;]</span>
+</pre></div>
+</div>
+<p>For most setter methods, it is likely that the value will be the first argument
+passed. However, this is not always the case. Take <code class="docutils literal notranslate"><span class="pre">list.insert()</span></code> – the
+first argument is the index where the value is inserted.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;new&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;new&#39;, &#39;zero&#39;, &#39;one&#39;, &#39;two&#39;]</span>
+</pre></div>
+</div>
+<p>In this case, if we want a bearing that places <code class="docutils literal notranslate"><span class="pre">value</span></code> at the head of a
+<code class="docutils literal notranslate"><span class="pre">list</span></code>, we need to pass <code class="docutils literal notranslate"><span class="pre">value</span></code> as the <em>second</em> argument.</p>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">Call.VALUE_ARG</span></code> object to indicate that instead of being
+placed as the first argument, <code class="docutils literal notranslate"><span class="pre">value</span></code> should replace the <code class="docutils literal notranslate"><span class="pre">Call.VALUE_ARG</span></code>
+whenever a new value is passed to the bearing.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inserts_head</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;insert&quot;</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Call</span><span class="o">.</span><span class="n">VALUE_ARG</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inserts_head</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="s2">&quot;new&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span>
+<span class="go">[&#39;new&#39;, &#39;zero&#39;, &#39;one&#39;, &#39;two&#39;]</span>
+</pre></div>
+</div>
+<p>This also works with <code class="docutils literal notranslate"><span class="pre">**kwarg</span> <span class="pre">values</span></code>. Using the <code class="docutils literal notranslate"><span class="pre">MultiArg</span></code>, class from
+above:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="n">MultiArg</span><span class="p">((</span><span class="s1">&#39;zero&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">Call</span><span class="o">.</span><span class="n">VALUE_ARG</span><span class="p">,</span> <span class="s1">&#39;cast_type&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inserts_head</span> <span class="o">=</span> <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;args_reversed&quot;</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inserts_head</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inserts_head</span>
+<span class="go">[&#39;zero&#39;, &#39;one&#39;, &#39;two&#39;, &#39;3&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="fallback-type">
+<span id="bearing"></span><h3>Fallback Type<a class="headerlink" href="#fallback-type" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="gemma.Fallback">
+<em class="property">class </em><code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">Fallback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Fallback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Fallback" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="gemma.Fallback.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Fallback.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Fallback.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to fetch or place data on a target using other bearing class’ methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – name of bearing.</p>
+</dd>
+</dl>
+<p><strong>inherits from:</strong> <a class="reference internal" href="#gemma.BearingAbstract" title="gemma.BearingAbstract"><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></a></p>
+<p><strong>name types:</strong> <code class="docutils literal notranslate"><span class="pre">Any</span></code>.</p>
+<p><strong>shorthand:</strong> <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code></p>
+<dl class="simple">
+<dt>Class Attributes:</dt><dd><ul class="simple">
+<li><p><strong>BEARING_CLASSES (</strong> <code class="docutils literal notranslate"><span class="pre">List[Type[BearingAbstract]]</span></code> <strong>):</strong> bearing
+classes to cycle through when attempting to fetch or place data.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The available methods and order of attempts is determined by the list of types
+in <code class="docutils literal notranslate"><span class="pre">Fallback.BEARING_CLASSES</span></code>. This makes bearing less performant than
+invoking one of its test classes directly, but does make setting up
+<a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects easier and less tedious. The performance hit may or may
+not be worth it depending on your workflow.</p>
+<p>The default <code class="docutils literal notranslate"><span class="pre">BEARING_CLASSES</span></code> are <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>, <a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a>,
+and <a class="reference internal" href="#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a>, though that can be extended by inheriting this class</p>
+<p>Meant as a generic class when the bearing type is not well defined in a string
+( Allows for more compact, generic <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> declarations ).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.Fallback.fetch">
+<code class="sig-name descname">fetch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Fallback.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Fallback.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to fetch data from <code class="docutils literal notranslate"><span class="pre">target</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – object to fetch data from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>value</p>
+</dd>
+</dl>
+<p>Cycles through the classes in <code class="docutils literal notranslate"><span class="pre">Fallback.BEARING_CLASSES</span></code>, casting the current
+Bearing to each type, and invoking their <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> method.</p>
+<p>If the cast or fetch results in a :class:<code class="docutils literal notranslate"><span class="pre">NullNameError</span></code>, <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">ValueError</span></code>, the exception is caught and the next class is tried.</p>
+<p>By default, <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> cycles through <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> on <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>,
+<a class="reference internal" href="#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a>, and <a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a>, in that order.</p>
+<p>With the default classes, if an attribute exists, it will be fetched.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Fallback</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestData</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="n">TestData</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;a value&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_fetch</span> <span class="o">=</span> <span class="n">Fallback</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_fetch</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="go">&#39;a value&#39;</span>
+</pre></div>
+</div>
+<p>Same with an Index.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;a dict&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_fetch</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">&#39;a dict&#39;</span>
+</pre></div>
+</div>
+<p>Same with a method.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">FetchMethod</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s1">&#39;a method&#39;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="n">FetchMethod</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_fetch</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="go">&#39;a method&#39;</span>
+</pre></div>
+</div>
+<p>When an name has multiple compatible bearings, it takes the first method’s value
+that does not throw an exception.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TwoValid</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s1">&#39;a method&#39;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="n">TwoValid</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;a item&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_fetch</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="go">&#39;a item&#39;</span>
+</pre></div>
+</div>
+<p>Both <code class="docutils literal notranslate"><span class="pre">Item('a')</span></code> and <code class="docutils literal notranslate"><span class="pre">Call('a')</span></code> would return valid values –
+<code class="docutils literal notranslate"><span class="pre">&quot;a</span> <span class="pre">method&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;a</span> <span class="pre">item&quot;</span></code>, respectively – but since <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> is
+tried first and gets a valid response, the key value is returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gemma.Fallback.place">
+<code class="sig-name descname">place</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#Fallback.place"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.Fallback.place" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to set <code class="docutils literal notranslate"><span class="pre">value</span></code> on <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Object to set <code class="docutils literal notranslate"><span class="pre">value</span></code> on.</p></li>
+<li><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Value to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>Attempts to place data on a given name of <code class="docutils literal notranslate"><span class="pre">target</span></code> by cycling through the
+classes in <code class="docutils literal notranslate"><span class="pre">Fallback.BEARING_CLASSES</span></code>, casting the current Bearing to each
+type, and invoking their <code class="docutils literal notranslate"><span class="pre">place()</span></code> method.</p>
+<p>If the cast or place results in a <a class="reference internal" href="exceptions.html#gemma.NullNameError" title="gemma.NullNameError"><code class="xref py py-class docutils literal notranslate"><span class="pre">NullNameError</span></code></a>, <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">ValueError</span></code>, the exception is caught and the next class is tried.</p>
+<p>By default, <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> cycles through <code class="docutils literal notranslate"><span class="pre">place()</span></code> on <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>,
+<a class="reference internal" href="#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a>, and <a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a>, in that order.</p>
+<p>With the default classes, if an attribute exists, it will be placed.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Fallback</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestData</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="n">TestData</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_place</span> <span class="o">=</span> <span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_place</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="s2">&quot;a attr&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span><span class="o">.</span><span class="n">a</span>
+<span class="go">&#39;a attr&#39;</span>
+</pre></div>
+</div>
+<p>Same with an Index.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_place</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="s2">&quot;a dict&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span>
+<span class="go">{&#39;a&#39;: &#39;a dict&#39;}</span>
+</pre></div>
+</div>
+<p>Same with a method.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">FetchMethod</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">value</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span> <span class="o">=</span> <span class="n">FetchMethod</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_place</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="s2">&quot;a method&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_data</span><span class="o">.</span><span class="n">a</span>
+<span class="go">&#39;a method&#39;</span>
+</pre></div>
+</div>
+<p>When an name has multiple compatible bearings, it takes the first method’s value
+that does not throw an exception.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TwoValid</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">value</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="n">TwoValid</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_place</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="s1">&#39;a value&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span>
+<span class="go">{&#39;a&#39;: &#39;a value&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span><span class="o">.</span><span class="n">a</span>
+<span class="go">&lt;Item: &#39;a&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Both <code class="docutils literal notranslate"><span class="pre">Item('a')</span></code> and <code class="docutils literal notranslate"><span class="pre">Call('a')</span></code> would set valid values – (to a key and
+attribute respectively) – but since <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> is tried first and does not
+return an error, it is set to the dict’s key rather than overriding
+it’s <code class="docutils literal notranslate"><span class="pre">a</span></code> method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="casting-bearings">
+<span id="bearing-cast"></span><h2>Casting Bearings<a class="headerlink" href="#casting-bearings" title="Permalink to this headline">¶</a></h2>
+<p>When casting a bearing directly, formatting is not parsed, unlike the method that
+<a class="reference internal" href="#gemma.bearing" title="gemma.bearing"><code class="xref py py-func docutils literal notranslate"><span class="pre">bearing()</span></code></a> below uses.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Item</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;[has_brackets]&quot;</span><span class="p">)</span>
+<span class="go">&lt;Item: &#39;[has_brackets]&#39;&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Item</span><span class="p">(</span><span class="s2">&quot;no_brackets&quot;</span><span class="p">)</span>
+<span class="go">&lt;Item: &#39;no_brackets&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Values must pass the class’ <a class="reference internal" href="#gemma.BearingAbstract.is_compatible" title="gemma.BearingAbstract.is_compatible"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.is_compatible()</span></code></a>, if it does
+not, <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> is raised.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Attr</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+ <span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">type &lt;class &#39;int&#39;&gt; not allowed as &lt;class &#39;gemma._bearings.Attr&#39;&gt;</span>
+</pre></div>
+</div>
+<p>When passing a bearing to another bearing, the original’s
+<a class="reference internal" href="#gemma.BearingAbstract.name" title="gemma.BearingAbstract.name"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.name()</span></code></a> value is extracted before casting.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">original</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;key_name&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="go">&lt;Attr: &#39;key_name&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sorting-bearings">
+<span id="bearing-sort"></span><h2>Sorting Bearings<a class="headerlink" href="#sorting-bearings" title="Permalink to this headline">¶</a></h2>
+<p>Bearings are sorted in the following order:</p>
+<ul class="simple">
+<li><p>By class <code class="docutils literal notranslate"><span class="pre">type</span></code>:</p>
+<ul>
+<li><p><a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a></p></li>
+<li><p><a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a></p></li>
+<li><p>[custom classes]</p></li>
+<li><p><a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a></p></li>
+</ul>
+</li>
+<li><p>Custom classes are sorted by class <code class="docutils literal notranslate"><span class="pre">__name__</span></code></p></li>
+<li><p>Each class group is sorted by it’s value type’s <code class="docutils literal notranslate"><span class="pre">__name__</span></code></p></li>
+<li><p>Within each value type, values are sorted by their respective sort methods.</p></li>
+</ul>
+<p>Lets look as how the following list of bearings is sorted:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Attr</span><span class="p">,</span> <span class="n">Call</span><span class="p">,</span> <span class="n">Fallback</span><span class="p">,</span> <span class="n">BearingAbstract</span>
+</pre></div>
+</div>
+<p>We’re going to make a couple custom bearings to demonstrate how they sort:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Alpha</span><span class="p">(</span><span class="n">BearingAbstract</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Beta</span><span class="p">(</span><span class="n">BearingAbstract</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>Here are our unsorted values:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bearing_unsorted</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Alpha</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Fallback</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Call</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Beta</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Item</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Alpha</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Attr</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Beta</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Item</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>Sort them:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bearings_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bearing_unsorted</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Print sorted list to check:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">this_bearing</span> <span class="ow">in</span> <span class="n">bearings_sorted</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">this_bearing</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">&lt;Item: 1&gt;</span>
+<span class="go">&lt;Item: 2&gt;</span>
+<span class="go">&lt;Item: &#39;a&#39;&gt;</span>
+<span class="go">&lt;Item: &#39;b&#39;&gt;</span>
+<span class="go">&lt;Attr: &#39;a&#39;&gt;</span>
+<span class="go">&lt;Attr: &#39;a&#39;&gt;</span>
+<span class="go">&lt;Attr: &#39;b&#39;&gt;</span>
+<span class="go">&lt;Call: &#39;a&#39;&gt;</span>
+<span class="go">&lt;Call: &#39;b&#39;&gt;</span>
+<span class="go">&lt;Alpha: &#39;a&#39;&gt;</span>
+<span class="go">&lt;Alpha: &#39;b&#39;&gt;</span>
+<span class="go">&lt;Beta: &#39;a&#39;&gt;</span>
+<span class="go">&lt;Beta: &#39;b&#39;&gt;</span>
+<span class="go">&lt;Fallback: &#39;a&#39;&gt;</span>
+<span class="go">&lt;Fallback: &#39;b&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="checking-bearing-equality">
+<span id="bearing-eq"></span><h2>Checking Bearing Equality<a class="headerlink" href="#checking-bearing-equality" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl>
+<dt>Bearings of the same type and <a class="reference internal" href="#gemma.BearingAbstract.name" title="gemma.BearingAbstract.name"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.name()</span></code></a> value are considered equal:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Bearings with different <a class="reference internal" href="#gemma.BearingAbstract.name" title="gemma.BearingAbstract.name"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.name()</span></code></a> values are unequal.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Bearings of different types are always unequal.</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Except the <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> class… sometimes</dt><dd><p>The <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> class is equal to any type loaded into its <code class="docutils literal notranslate"><span class="pre">BEARING_CLASSES</span></code>
+field. By default, this makes it equal to any <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>, <a class="reference internal" href="#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a>,
+<a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a> or <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> with the same <a class="reference internal" href="#gemma.BearingAbstract.name" title="gemma.BearingAbstract.name"><code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.name()</span></code></a> value.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Fallback</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Attr</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Fallback</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Fallback</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Call</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>However, if we define an arbitrary class named <code class="docutils literal notranslate"><span class="pre">Alpha</span></code>, it will not be equal to
+a bearing with the same name.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Alpha</span><span class="p">(</span><span class="n">BearingAbstract</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Fallback</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">Alpha</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>If we create a Bearing with the <a class="reference internal" href="#gemma.bearing" title="gemma.bearing"><code class="xref py py-func docutils literal notranslate"><span class="pre">bearing()</span></code></a> factory method detailed below,
+using Alpha as one of its possibilities, the two values will be equal.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">bearing</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_bearing</span> <span class="o">=</span> <span class="n">Fallback</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">bearing_classes</span><span class="o">=</span><span class="p">[</span><span class="n">Attr</span><span class="p">,</span> <span class="n">Fallback</span><span class="p">,</span> <span class="n">Alpha</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_bearing</span>
+<span class="go">&lt;Fallback: &#39;a&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_bearing</span> <span class="o">==</span> <span class="n">Alpha</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>This is because <a class="reference internal" href="#gemma.bearing" title="gemma.bearing"><code class="xref py py-func docutils literal notranslate"><span class="pre">bearing()</span></code></a> loads any fallback <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a>
+objects <code class="docutils literal notranslate"><span class="pre">.BEARING_CLASSES</span></code> field with the classes passed to <code class="docutils literal notranslate"><span class="pre">bearing_classes</span></code>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="bearing-factory-method">
+<span id="bearing-factory"></span><h2>Bearing Factory Method<a class="headerlink" href="#bearing-factory-method" title="Permalink to this headline">¶</a></h2>
+<p>The factory method that most default <code class="docutils literal notranslate"><span class="pre">gemma</span></code> objects use when casting name values
+to a bearing is:</p>
+<dl class="py function">
+<dt id="gemma.bearing">
+<code class="sig-prename descclassname">gemma.</code><code class="sig-name descname">bearing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">bearing_classes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bearing_classes_extra</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/_bearings.html#bearing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.bearing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory function for bearing classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – value for Bearing.name</p></li>
+<li><p><strong>bearing_classes</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>]]]) – list and order of bearing classes to attempt casting</p></li>
+<li><p><strong>bearing_classes_extra</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code>]]]) – additional classes to add to bearing classes. Used
+to add to defaults when <code class="docutils literal notranslate"><span class="pre">bearing_classes</span></code> is set to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">BearingAbstract</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Bearing object</p>
+</dd>
+</dl>
+<p>If <code class="docutils literal notranslate"><span class="pre">name</span></code> is a string, bearing will attempt to cast using each class’
+<code class="xref py py-func docutils literal notranslate"><span class="pre">BearingAbstract.from_string()</span></code> method.</p>
+<p>Otherwise, bearing attempts to cast to each class normally, passing <code class="docutils literal notranslate"><span class="pre">name</span></code> as a
+single argument to each <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method.</p>
+<p>The default list of classes to attempt are: <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a>, <a class="reference internal" href="#gemma.Call" title="gemma.Call"><code class="xref py py-class docutils literal notranslate"><span class="pre">Call</span></code></a>,
+<a class="reference internal" href="#gemma.Attr" title="gemma.Attr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Attr</span></code></a>, and <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> – in that order.</p>
+<p>Any bearing types passed to <code class="docutils literal notranslate"><span class="pre">bearing_classes_extra</span></code> are put <em>ahead</em> of the
+bearings in <code class="docutils literal notranslate"><span class="pre">bearing_classes</span></code>.</p>
+<p>Casting formatted strings:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">bearing</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span><span class="p">(</span><span class="s2">&quot;[item_name]&quot;</span><span class="p">)</span>
+<span class="go">&lt;Item: &#39;item_name&#39;&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span><span class="p">(</span><span class="s2">&quot;@attr_name&quot;</span><span class="p">)</span>
+<span class="go">&lt;Attr: &#39;attr_name&#39;&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span><span class="p">(</span><span class="s2">&quot;call_name()&quot;</span><span class="p">)</span>
+<span class="go">&lt;Call: &#39;call_name&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Passing a string which does not match any of the above class’ string conventions
+will result in a generic <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span><span class="p">(</span><span class="s2">&quot;unknown_name&quot;</span><span class="p">)</span>
+<span class="go">&lt;Fallback: &#39;unknown_name&#39;&gt;</span>
+</pre></div>
+</div>
+<p>This Fallback class will be loaded with the methods of the other classes, if
+<code class="docutils literal notranslate"><span class="pre">bearing_classes</span></code> includes custom Bearings, those class’ methods will be added
+to the list. No need to make a custom subclass to extend the pool methods available
+to <a class="reference internal" href="#gemma.Fallback" title="gemma.Fallback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fallback</span></code></a> when using this factory.</p>
+<p>Passing a non-string will always result in an <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> object with the
+default list, since <a class="reference internal" href="#gemma.Item" title="gemma.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a> accepts all types, and is attempted first.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">&lt;Item: 5&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="go">&lt;Item: (5, 4)&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="courses.html" class="btn btn-neutral float-right" title="Courses: Data as Paths" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="example_objects.html" class="btn btn-neutral float-left" title="Example Objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gemma-py &mdash; gemma 1.2.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic Usage" href="basic_usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>gemma-py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gemma"></span><div class="section" id="gemma-py">
+<h1>gemma-py<a class="headerlink" href="#gemma-py" title="Permalink to this headline">¶</a></h1>
+<img alt="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Reinerus_Frisius_Gemma%2C_by_Maarten_van_Heemskerck.jpg/118px-Reinerus_Frisius_Gemma%2C_by_Maarten_van_Heemskerck.jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Reinerus_Frisius_Gemma%2C_by_Maarten_van_Heemskerck.jpg/118px-Reinerus_Frisius_Gemma%2C_by_Maarten_van_Heemskerck.jpg" />
+<p><code class="docutils literal notranslate"><span class="pre">gemma</span></code> is is a python library for mapping data structures, named for Dutch
+cartographer <a class="reference external" href="https://en.wikipedia.org/wiki/Gemma_Frisius">Gemma Frisius</a>. From Wikipedia:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Gemma Frisius (/ˈfrɪziəs/; born Jemme Reinerszoon; December 9, 1508 – May 25, 1555),
+was a Dutch physician, mathematician, cartographer, philosopher, and instrument
+maker. He created important globes, improved the mathematical instruments of his day
+and applied mathematics in new ways to surveying and navigation.
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example_objects.html#simple">simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_objects.html#data-dict">data_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_objects.html#data-list">data_list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_objects.html#structured">structured</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_objects.html#target">target</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bearings.html#bearingabstract-base-type">BearingAbstract Base Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bearings.html#bearing-shorthand">Bearing Shorthand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bearings.html#implementations">Implementations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bearings.html#attr-type">Attr Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bearings.html#item-type">Item Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bearings.html#call-type">Call Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bearings.html#fallback-type">Fallback Type</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bearings.html#casting-bearings">Casting Bearings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bearings.html#sorting-bearings">Sorting Bearings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bearings.html#checking-bearing-equality">Checking Bearing Equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bearings.html#bearing-factory-method">Bearing Factory Method</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#course-class">Course Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#making-a-new-course-object">Making a New Course Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#appending-courses">Appending Courses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#the-port-course">The PORT Course</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#course-length">Course Length</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#iterating-through-a-course">Iterating Through a Course</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#course-equality">Course Equality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#slicing-and-indexing">Slicing and Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#checking-for-a-sub-course-or-bearing">Checking for a Sub-Course or Bearing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#fetching-default-values">Fetching Default Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#creating-missing-bearings">Creating Missing Bearings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses.html#more-fetch-examples">More fetch() Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#compass-class">Compass Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#map-bearings-of-object">Map Bearings of Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#include-methods-of-object">Include Methods of Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#omitting-bearings-from-map">Omitting Bearings from Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#restrict-bearings-from-map">Restrict Bearings from Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#declare-compatible-types">Declare Compatible Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#custom-compatibility">Custom Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compasses.html#additional-examples">Additional Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="surveyors.html#surveyor-class">Surveyor Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="surveyors.html#get-all-courses-in-object">Get all Courses in Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="surveyors.html#charting-with-custom-compasses">Charting with Custom Compasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="surveyors.html#adding-additional-end-points">Adding Additional End Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="surveyors.html#suppressing-nonnavigableerror">Suppressing NonNavigableError</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#coordinate-dataclass">Coordinate Dataclass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#coord-alias">Coord Alias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#cartographer-class">Cartographer Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#mapping-flow">Mapping Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#basic-mapping">Basic Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#using-default-values">Using Default Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#supply-cleaning-functions">Supply Cleaning Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#blank-destinations">Blank Destinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#map-source-automatically">Map Source Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#mix-explicit-and-automatic-mapping">Mix Explicit and Automatic Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#override-default-methods">Override Default Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#one-many-origins-to-one-many-destinations">One/Many Origins to One/Many Destinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cartographers.html#suppress-errors">Suppress Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extension_xml.html#xelm-bearing-type">XElm Bearing Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_xml.html#xcourse">XCourse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_xml.html#xcompass">XCompass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_xml.html#xsurveyor">xsurveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_xml.html#cartography">Cartography</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basic_usage.html" class="btn btn-neutral float-right" title="Basic Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

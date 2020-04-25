@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basic Usage &mdash; gemma 1.2.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example Objects" href="example_objects.html" />
+    <link rel="prev" title="gemma-py" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_objects.html">Example Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Basic Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/basic_usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gemma"></span><div class="section" id="basic-usage">
+<span id="id1"></span><h1>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h1>
+<dl>
+<dt>Lay a <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> to your data!</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Course</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="gp">... </span>        <span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">{</span><span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_course</span> <span class="o">=</span> <span class="n">Course</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_course</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd>
+<dt>Use <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#operators">pathlib-like syntax</a> to work intuitively with <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects!</dt><dd><p>The above is equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_course</span> <span class="o">=</span> <span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;a&quot;</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">/</span> <span class="s2">&quot;b&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_course</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd>
+<dt>Place data at a location!</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_course</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;new value&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">{&#39;a&#39;: [None, {&#39;b&#39;: &#39;new value&#39;}]}</span>
+</pre></div>
+</div>
+</dd>
+<dt>Chart a structure’s data!</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Surveyor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_surveyor</span> <span class="o">=</span> <span class="n">Surveyor</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">course</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data_surveyor</span><span class="o">.</span><span class="n">chart_iter</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">course</span><span class="p">),</span> <span class="s2">&quot;|&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt;&gt; | [None, {&#39;b&#39;: &#39;new value&#39;}]</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt; / &lt;Item: 0&gt;&gt; | None</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt; / &lt;Item: 1&gt;&gt; | {&#39;b&#39;: &#39;new value&#39;}</span>
+<span class="go">&lt;Course: &lt;Item: &#39;a&#39;&gt; / &lt;Item: 1&gt; / &lt;Item: &#39;b&#39;&gt;&gt; | new value</span>
+</pre></div>
+</div>
+</dd>
+<dt>Map data from one object to another with ease!</dt><dd><p>Set up source data.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">DataOrigin</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;a value&quot;</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;b value&quot;</span>
+<span class="gp">... </span>    <span class="n">one</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">two</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_origin</span> <span class="o">=</span> <span class="n">DataOrigin</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Set up the object source data should be mapped to.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_destination</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a quick list of input and output <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> objects. In this case, we
+want to map the above <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> to a <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code> with sub-dictionaries
+grouped by type</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Coordinate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">Course</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;a field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;str&quot;</span> <span class="o">/</span> <span class="s2">&quot;b field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;one field&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Coordinate</span><span class="p">(</span><span class="n">org</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">root</span> <span class="o">/</span> <span class="s2">&quot;int&quot;</span> <span class="o">/</span> <span class="s2">&quot;two field&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Map the data using a <a class="reference internal" href="cartographers.html#gemma.Cartographer" title="gemma.Cartographer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cartographer</span></code></a> object. The data will be moved from the
+origin object <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a> on the source object to the destination <a class="reference internal" href="courses.html#gemma.Course" title="gemma.Course"><code class="xref py py-class docutils literal notranslate"><span class="pre">Course</span></code></a>
+on the destination object</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gemma</span> <span class="kn">import</span> <span class="n">Cartographer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span> <span class="o">=</span> <span class="n">Cartographer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data_origin</span><span class="p">,</span> <span class="n">data_destination</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Check the result:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_destination</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">    &quot;int&quot;: {</span>
+<span class="go">        &quot;one field&quot;: 1,</span>
+<span class="go">        &quot;two field&quot;: 2</span>
+<span class="go">    },</span>
+<span class="go">    &quot;str&quot;: {</span>
+<span class="go">        &quot;a field&quot;: &quot;a value&quot;,</span>
+<span class="go">        &quot;b field&quot;: &quot;b value&quot;</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">gemma</span></code> makes it quick and easy to move data from one object to another in a quick,
+concise way. The example above is deterministic, so should not require manual
+creation of the input and output courses. The <a class="reference internal" href="cartographers.html#gemma.Cartographer" title="gemma.Cartographer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cartographer</span></code></a> class allows for
+overriding of a few key methods to map data efficiently.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">NewCart</span><span class="p">(</span><span class="n">Cartographer</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">clean_dst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">course</span><span class="p">:</span> <span class="n">Course</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">:</span> <span class="n">Coordinate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Course</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">dst</span> <span class="o">=</span> <span class="n">Course</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="nb">type</span><span class="p">(</span><span class="n">coordinate</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="p">(</span><span class="n">coordinate</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">end_point</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; field&quot;</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">dst</span>
+</pre></div>
+</div>
+<p>The above method determines the destination course of each coordinate, in this
+example, we will use the default <a class="reference internal" href="surveyors.html#gemma.Surveyor" title="gemma.Surveyor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surveyor</span></code></a>, which will allow the cartographer
+to find all the end points of <code class="docutils literal notranslate"><span class="pre">data_origin</span></code> on its own, then calculate each
+destination course.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span> <span class="o">=</span> <span class="n">NewCart</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_destination</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_cartographer</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">data_origin</span><span class="p">,</span> <span class="n">data_destination</span><span class="p">,</span> <span class="n">surveyor</span><span class="o">=</span><span class="n">data_surveyor</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_destination</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go"> &quot;int&quot;: {</span>
+<span class="go">     &quot;one field&quot;: 1,</span>
+<span class="go">     &quot;two field&quot;: 2</span>
+<span class="go"> },</span>
+<span class="go"> &quot;str&quot;: {</span>
+<span class="go">     &quot;a field&quot;: &quot;a value&quot;,</span>
+<span class="go">     &quot;b field&quot;: &quot;b value&quot;</span>
+<span class="go"> }</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>The deeper documentation will explain how each object works, and how it can be extended
+for custom mapping. <code class="docutils literal notranslate"><span class="pre">gemma</span></code> offers an powerful, but straightforward method for
+extending the library’s functionality.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="example_objects.html" class="btn btn-neutral float-right" title="Example Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="gemma-py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

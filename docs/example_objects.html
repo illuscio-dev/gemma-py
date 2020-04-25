@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Example Objects &mdash; gemma 1.2.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bearings: Access Data Generically" href="bearings.html" />
+    <link rel="prev" title="Basic Usage" href="basic_usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gemma
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Basic Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#simple">simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-dict">data_dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-list">data_list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#structured">structured</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#target">target</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bearings.html">Bearings: Access Data Generically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="courses.html">Courses: Data as Paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compasses.html">Compasses: Describe Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surveyors.html">Surveyors: Traverse Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cartographers.html">Cartographers: Move Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension_xml.html">Extension: XML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending gemma</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gemma</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Example Objects</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/example_objects.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="example-objects">
+<span id="test-objects"></span><h1>Example Objects<a class="headerlink" href="#example-objects" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">gemma</span></code> comes pre-loaded with some example data objects used throughout this
+documentation. To make a fresh copy of these objects, copy/paste the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gemma.test_objects</span> <span class="kn">import</span> <span class="n">test_objects</span>
+
+<span class="n">simple</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">data_list</span><span class="p">,</span> <span class="n">structured</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">test_objects</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For details on each object, see the documentation of <code class="xref py py-func docutils literal notranslate"><span class="pre">test_objects()</span></code>, and
+the descriptions following.</p>
+<dl class="py function">
+<dt id="gemma.test_objects.test_objects">
+<code class="sig-prename descclassname">gemma.test_objects.</code><code class="sig-name descname">test_objects</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemma/test_objects.html#test_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemma.test_objects.test_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns fresh copies of data structure test objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataSimple</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataSimple</span></code>]], <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataSimple</span></code>]], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataSimple</span></code>]], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataStructured</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataTarget</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code>, <code class="docutils literal notranslate"><span class="pre">data_dict</span></code>, <code class="docutils literal notranslate"><span class="pre">data_list</span></code>, <code class="docutils literal notranslate"><span class="pre">structured</span></code>, <code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+</dd>
+</dl>
+<p>The structure of each object is detailed in <code class="docutils literal notranslate"><span class="pre">gemma</span></code>’s documentation.</p>
+</dd></dl>
+
+<div class="section" id="simple">
+<span id="id1"></span><h2>simple<a class="headerlink" href="#simple" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">simple</span></code> is a <code class="docutils literal notranslate"><span class="pre">dataclass</span></code> object of the following class.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">DataSimple</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">text</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">... </span>    <span class="n">number</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>The instantiated object returned by this function is equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span> <span class="o">=</span> <span class="n">DataSimple</span><span class="p">(</span><span class="s2">&quot;simple text&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span>
+<span class="go">DataSimple(text=&#39;simple text&#39;, number=50)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-dict">
+<span id="id2"></span><h2>data_dict<a class="headerlink" href="#data-dict" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">data_dict</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, with the following data:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;a dict&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="s2">&quot;b dict&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;one dict&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;two dict&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;nested&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;one key&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;two key&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="s2">&quot;simple&quot;</span><span class="p">:</span> <span class="n">DataSimple</span><span class="p">(</span><span class="s2">&quot;string value&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-list">
+<span id="id3"></span><h2>data_list<a class="headerlink" href="#data-list" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">data_list</span></code> is a list with the following data:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="s2">&quot;zero list&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;one list&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;two list&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;three list&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data_dict</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">DataSimple</span><span class="p">(</span><span class="s2">&quot;in a list&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">data_dict</span></code> here is a copy of <code class="docutils literal notranslate"><span class="pre">data_dict</span></code>; the two are not the same mutable
+object.</p>
+</div>
+<div class="section" id="structured">
+<span id="id4"></span><h2>structured<a class="headerlink" href="#structured" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">structured</span></code> is an instance of the following dataclass:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">DataStructured</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">a</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;a data&quot;</span>
+<span class="gp">... </span>    <span class="n">b</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;b data&quot;</span>
+<span class="gp">... </span>    <span class="n">one</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">31</span>
+<span class="gp">... </span>    <span class="n">two</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="gp">... </span>    <span class="n">dict_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">list_data</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">simple</span><span class="p">:</span> <span class="n">DataSimple</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DataSimple</span><span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>The instantiated object returned by this function is equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">structured</span> <span class="o">=</span> <span class="n">DataStructured</span><span class="p">(</span><span class="n">dict_data</span><span class="o">=</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">list_data</span><span class="o">=</span><span class="n">data_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>… where <code class="docutils literal notranslate"><span class="pre">data_dict</span></code> is a separate copy of the same <code class="docutils literal notranslate"><span class="pre">data_dict</span></code> returned by
+this function and <code class="docutils literal notranslate"><span class="pre">data_list</span></code> is the same for <code class="docutils literal notranslate"><span class="pre">data_list</span></code>.</p>
+</div>
+<div class="section" id="target">
+<span id="id5"></span><h2>target<a class="headerlink" href="#target" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">target</span></code> is a dataclass with empty objects designed to be a target for setting data.
+The class is:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">DataTarget</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">text_target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">... </span>    <span class="n">number_target</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">... </span>    <span class="n">list_target</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">dict_target</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>And the returned object is equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">target</span> <span class="o">=</span> <span class="n">DataTarget</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target</span>
+<span class="go">DataTarget(text_target=None, number_target=None, list_target=[], dict_target={})</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bearings.html" class="btn btn-neutral float-right" title="Bearings: Access Data Generically" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basic_usage.html" class="btn btn-neutral float-left" title="Basic Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright &#39;2018, Illuscio&#39;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
